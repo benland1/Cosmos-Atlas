@@ -2,7 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<style>html,body,#labels,.ui{touch-action:pan-x pan-y}#gl,canvas{touch-action:none}</style>
+<script>
+/* Phones: the atlas handles its own pinch-to-zoom, so the browser must never
+   zoom the page itself. iOS ignores user-scalable=no, so block its gesture
+   events (touch-action covers double-tap), and if the page does end up zoomed anyway,
+   reset the viewport so the 3D view refills the screen. */
+(function () {
+  var stop = function (e) { e.preventDefault(); };
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (t) {
+    document.addEventListener(t, stop, { passive: false });
+  });
+  document.addEventListener('touchmove', function (e) {
+    if (e.touches.length > 1 && !(e.target && e.target.id === 'gl')) e.preventDefault();
+  }, { passive: false });
+  function unzoom() {
+    var vv = window.visualViewport;
+    if (!vv || vv.scale <= 1.01) return;
+    var m = document.querySelector('meta[name=viewport]');
+    var c = m.getAttribute('content');
+    m.setAttribute('content', c.replace('initial-scale=1', 'initial-scale=0.999'));
+    setTimeout(function () { m.setAttribute('content', c); dispatchEvent(new Event('resize')); }, 60);
+  }
+  if (window.visualViewport) visualViewport.addEventListener('resize', function () { setTimeout(unzoom, 250); });
+  addEventListener('orientationchange', function () { setTimeout(unzoom, 400); });
+})();
+</script>
 <meta name="theme-color" content="#04060d">
 <title>Cosmos Atlas — explore the observable universe</title>
 <meta name="description" content="An interactive 3D atlas of the solar system, 6,336 exoplanets, the constellations and 43,473 real galaxies — from the surface of the Moon to the edge of the observable universe.">
