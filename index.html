@@ -593,6 +593,86 @@ body.skymode #ladder .track{background:linear-gradient(90deg,#2a6cff,#66d9ff,#ff
   #narrbar{bottom:150px}
 }
 
+
+.evtabs{flex-wrap:wrap}
+.evtabs button{flex:1 0 auto;padding:8px 7px}
+/* ------------------------------------------------- artemis / orbit watch / video */
+#artbar{left:18px;bottom:96px;width:min(90vw,318px);display:none;z-index:12}
+#artbar.show{display:block;animation:obin .5s both}
+#artbar .glass,#owbar .glass{padding:13px 15px}
+#artbar .fhhd,#owbar .fhhd{display:flex;align-items:center;gap:6px;font:500 10px/1.4 var(--mono);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+#artbar .fhhd b{color:var(--ink);font-weight:500}
+#artbar .tlx,#owbar .tlx{margin-left:auto;width:22px;height:22px;border-radius:6px;border:1px solid var(--edge);
+  background:none;color:var(--dim);cursor:pointer;line-height:1;font-size:13px;flex:none}
+.arbig{display:flex;align-items:baseline;gap:8px;margin:10px 0 0}
+.arbig b{font:200 38px/1 var(--sans);letter-spacing:-1px;font-variant-numeric:tabular-nums;color:#f4f7ff}
+.arbig em{font:500 9px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);font-style:normal}
+.arsub{font:400 10px/1.4 var(--mono);color:var(--dimmer);letter-spacing:.04em;margin-top:4px}
+.arrec{margin:10px 0 2px}
+.arrec .track{height:4px;border-radius:2px;background:rgba(120,170,235,.16);overflow:hidden}
+.arrec .track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#66b3ff,#ffd27a);border-radius:2px}
+.arrec span{display:block;font:500 9px/1.5 var(--mono);letter-spacing:.08em;color:var(--dim);margin-top:5px;text-transform:uppercase}
+#artbar.rec .arrec span{color:#ffd27a}
+#artbar.rec .arbig b{color:#ffe7b0;text-shadow:0 0 22px rgba(255,200,110,.45)}
+#artbar .fhgrid,#owbar .fhgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;margin:11px 0 9px}
+#artbar .fhgrid span,#owbar .fhgrid span{display:block;font:400 8px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+#artbar .fhgrid b,#owbar .fhgrid b{display:block;font:500 12px/1.35 var(--mono);color:var(--ink);font-variant-numeric:tabular-nums}
+.arbtns{display:flex;gap:6px;flex-wrap:wrap}
+.arbtns .mini{flex:1}
+#arRec{color:#ff8a8a;border-color:rgba(255,120,120,.4);background:rgba(255,90,90,.1)}
+#owbar{left:18px;bottom:96px;width:min(90vw,318px);display:none;z-index:12}
+#owbar.show{display:block;animation:obin .5s both}
+#owName{font:500 12px/1.4 var(--sans);margin-top:8px;color:var(--ink)}
+.owgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 10px}
+.owgrid div{border:1px solid var(--edge);border-radius:9px;padding:9px 6px;text-align:center}
+.owgrid b{display:block;font:300 18px/1.1 var(--sans);font-variant-numeric:tabular-nums}
+.owgrid span{display:block;font:400 8px/1.35 var(--mono);letter-spacing:.06em;color:var(--dimmer);margin-top:4px;text-transform:uppercase}
+.owstat{font:400 10.5px/1.5 var(--mono);color:var(--acc2);padding:2px 2px 8px;min-height:4px}
+.pchips{padding:9px 0 0}
+.pchips .chip{cursor:pointer}
+.passtools{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 10px}
+#tRec{color:#ff7a7a}
+#tRec.on{background:#ff5a5a;border-color:#ff5a5a;color:#fff}
+#recpill{position:fixed;top:calc(14px + var(--sat));left:50%;transform:translateX(-50%);z-index:90;display:none;
+  align-items:center;gap:10px;padding:7px 8px 7px 13px;border-radius:20px;background:rgba(20,6,10,.82);
+  border:1px solid rgba(255,90,90,.45);backdrop-filter:blur(14px);font:500 11px/1 var(--mono);letter-spacing:.12em;color:#ffd5d5}
+#recpill.show{display:flex}
+#recpill .dot{width:9px;height:9px;border-radius:50%;background:#ff4b4b;animation:pulse 1.2s ease-in-out infinite}
+#recpill button{font:600 10px/1 var(--mono);letter-spacing:.14em;color:#fff;background:#ff4b4b;border:0;border-radius:14px;padding:7px 11px;cursor:pointer}
+body.recframe #gl{left:50%;right:auto;transform:translateX(-50%);box-shadow:0 0 0 1px rgba(255,90,90,.35)}
+body.recframe #labels,body.recframe #info,body.recframe #hint{display:none!important}
+#recdone{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;
+  background:rgba(2,4,10,.78);backdrop-filter:blur(10px);padding:calc(16px + var(--sat)) 16px calc(16px + var(--sab))}
+#recdone.show{display:flex}
+#recdone .rdbox{width:min(92vw,360px);display:flex;flex-direction:column;gap:12px;align-items:stretch}
+#recdone video{width:100%;max-height:62vh;aspect-ratio:9/16;object-fit:contain;background:#000;border-radius:14px;border:1px solid var(--edge)}
+#recdone h3{margin:0;font:300 20px/1.2 var(--sans);text-align:center}
+#recdone .rdmeta{font:400 10px/1.5 var(--mono);color:var(--dim);text-align:center;letter-spacing:.04em}
+#recdone .rdbtns{display:flex;gap:8px}
+#recdone .rdbtns>*{flex:1;text-align:center;text-decoration:none;padding:12px 10px;font-size:10.5px}
+#passalert{position:fixed;left:0;right:0;margin:0 auto;top:calc(70px + var(--sat));z-index:85;display:none;
+  width:min(92vw,420px);padding:12px 14px;border-radius:14px;background:rgba(8,16,30,.94);border:1px solid rgba(102,217,255,.5);
+  box-shadow:0 10px 40px rgba(0,0,0,.5);gap:10px;align-items:center}
+#passalert.show{display:flex;animation:obin .5s both}
+#passalert .pat{flex:1;font:400 12px/1.45 var(--sans)}
+#passalert .pab{display:flex;gap:6px}
+#nextpass{display:none;font:500 9.5px/1 var(--mono);letter-spacing:.08em;color:var(--acc2);white-space:nowrap}
+#nextpass.show{display:block}
+body.phone #artbar,body.phone #owbar{left:12px;right:12px;width:auto;bottom:calc(84px + var(--sab))}
+body.phone .arbig b{font-size:32px}
+body.artemis #ladder{display:none}
+body.phone.artemis #info,body.phone.artemis #bottom{display:none}
+body.phone #artbar{bottom:calc(12px + var(--sab))}
+body.phone #artbar .glass,body.phone #owbar .glass{background:rgba(8,13,26,.9);padding:11px 13px}
+body.phone .arsub#arKm{display:none}
+body.phone #artbar .fhgrid{margin:8px 0 8px}
+body.phone #artbar .fhgrid>div:nth-child(n+3){display:none}
+body.phone .arbig{margin-top:6px}
+body.phone .arrec{margin-top:7px}
+body.phone #tRev{display:none}
+body.phone #timepanel{gap:7px}
+
 /* ---------------------------------------------------------- near light */
 .relbox{padding:12px 14px;margin:2px 0 10px;border:1px solid rgba(120,160,255,.16);
   border-radius:12px;background:rgba(14,20,40,.42)}
@@ -726,6 +806,31 @@ body.touch.surfmode #surfbar .sfname{font-size:13px;margin:4px 0 0}
 body.phone.flying #info{display:none!important}
 body.phone #flybar{right:12px;left:12px;width:auto;bottom:calc(84px + var(--sab))}
 body.phone #btnInstall{display:none!important}
+
+/* ---- the info sheet: minimise to its title bar, drag it on touch screens */
+#info .hd{padding-right:78px}
+#info .close{top:14px;z-index:3}
+#info .minb{position:absolute;top:14px;right:46px;width:26px;height:26px;border-radius:7px;
+  border:1px solid var(--edge);color:var(--dim);cursor:pointer;display:grid;place-items:center;
+  background:none;z-index:3;transition:.15s}
+#info .minb:hover{color:var(--ink);border-color:rgba(140,200,255,.5)}
+#info .minb svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .25s}
+#info.peek{overflow:hidden}
+#info.peek .bd{display:none}
+#info.peek .hd{border-bottom:none;border-radius:14px}
+#info.peek .minb svg{transform:rotate(180deg)}
+#info .grab{display:none}
+#info.dragging{transition:none!important}
+@media (max-width:900px){
+  #info .hd{padding-top:22px;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+  #info .grab{display:block;position:absolute;top:8px;left:50%;width:40px;height:4px;margin-left:-20px;
+    border-radius:2px;background:rgba(170,200,245,.42)}
+  #info .close,#info .minb{top:18px;width:32px;height:32px}
+  #info .minb{right:52px}
+  #info .hd{padding-right:94px}
+  #info.peek h2{font-size:22px;margin:6px 0 2px}
+  #info.peek .sub{display:none}
+}
 </style>
 <style>
 /* ------------------------------------------------------- birthday star */
@@ -819,8 +924,11 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
 
 <!-- ---------------------------------------------------------- info -->
 <div class="ui glass" id="info">
-  <button class="close" id="infoclose">×</button>
-  <div class="hd">
+  <div class="hd" id="infohd">
+    <div class="grab"></div>
+    <button class="minb" id="infomin" title="Minimise" aria-label="Minimise">
+      <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <button class="close" id="infoclose" title="Close" aria-label="Close">×</button>
     <div class="kind" id="infokind"></div>
     <h2 id="infoname"></h2>
     <div class="sub" id="infosub"></div>
@@ -906,6 +1014,8 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
     <button data-t="film">The Long Shot</button>
     <button data-t="deep">Deep field</button>
     <button data-t="rel">Near light</button>
+    <button data-t="art">Artemis II</button>
+    <button data-t="orbit">Orbit Watch</button>
   </div>
   <div class="bd" id="evbody"></div>
 </div>
@@ -1088,6 +1198,54 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
   </div>
 </div>
 
+
+<!-- ---------------------------------------------------------- artemis II -->
+<div class="ui" id="artbar">
+  <div class="glass">
+    <div class="fhhd"><span>Artemis II &#183; <b id="arPhase">&#8212;</b></span>
+      <button class="tlx" id="arStop" title="End the replay">&#215;</button></div>
+    <div class="arbig"><b id="arMi">&#8212;</b><em>miles from<br>Earth</em></div>
+    <div class="arsub" id="arKm">&#8212;</div>
+    <div class="arrec"><div class="track"><i id="arRecBar"></i></div><span id="arRecTx">&#8212;</span></div>
+    <div class="fhgrid">
+      <div><span>mission time</span><b id="arMet">&#8212;</b></div>
+      <div><span>above the Moon</span><b id="arMoon">&#8212;</b></div>
+      <div><span>speed</span><b id="arSpd">&#8212;</b></div>
+      <div><span>date</span><b id="arDate">&#8212;</b></div>
+    </div>
+    <div class="arbtns"><button class="mini" id="arPause">pause</button>
+      <button class="mini" id="arCam">camera: auto</button>
+      <button class="mini" id="arRec">&#9679; record 9:16</button></div>
+  </div>
+</div>
+
+<!-- --------------------------------------------------------- orbit watch -->
+<div class="ui" id="owbar">
+  <div class="glass">
+    <div class="fhhd"><span>Close approach</span>
+      <button class="tlx" id="owStop" title="Stop watching">&#215;</button></div>
+    <div id="owName">&#8212;</div>
+    <div class="fhgrid">
+      <div><span>separation</span><b id="owSep">&#8212;</b></div>
+      <div><span>closing speed</span><b id="owVel">&#8212;</b></div>
+    </div>
+    <div class="arsub" id="owTca">&#8212;</div>
+    <div class="arbtns" style="margin-top:10px"><button class="mini" id="owSlow">slow motion</button>
+      <button class="mini" id="owAgain">watch again</button></div>
+  </div>
+</div>
+
+<div id="recpill"><span class="dot"></span><span>REC</span><span id="recT">0:00</span><button id="recStop">&#9632; stop</button></div>
+<div id="recdone"><div class="rdbox">
+  <h3>Your video</h3>
+  <video playsinline muted autoplay loop controls></video>
+  <div class="rdmeta"></div>
+  <div class="rdbtns"><button class="mini" data-rd="share">Share</button>
+    <a class="mini" data-rd="save" href="#">Save</a>
+    <button class="mini" data-rd="close">Close</button></div>
+</div></div>
+<div id="passalert"><div class="pat"></div><div class="pab">
+  <button class="mini" data-pa="go">Show me</button><button class="mini" data-pa="x">&#215;</button></div></div>
 <div class="ui" id="hint">drag to look · scroll to travel between scales · click anything</div>
 <div class="ui" id="tex"></div>
 <div class="ui" id="toast"></div>
@@ -1104,6 +1262,8 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
     <button class="tbtn" id="tFaster" title="Faster"><svg viewBox="0 0 24 24"><path d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg></button>
     <div id="rate">1 day/s</div>
     <button class="tbtn" id="tNow" title="Jump to now"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/></svg></button>
+    <button class="tbtn" id="tRec" title="Record a vertical video"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="M17 10.5l4-2.5v8l-4-2.5z"/></svg></button>
+    <div id="nextpass"></div>
   </div>
   <div style="width:210px" class="spacer"></div>
 </div>
@@ -11565,6 +11725,7 @@ function buildSats(realm) {
   SATS.points = new THREE.Points(geo, SATS.mat);
   SATS.points.frustumCulled = false;
   SATS.points.renderOrder = 3;
+  SATS.points.scale.setScalar(1 / UNIT.SOLAR);
   realm.root.add(SATS.points);
 
   // selected-satellite orbit ring and ground track
@@ -12003,9 +12164,9 @@ function satPasses(i, lat, lon, fromMs, days = 4, minAlt = 10) {
       const mag = passMagnitude(i, rangeKm, Math.PI - phase);
       const az = toAltAz(_pD, _pUp, _pN, _pE)[1] / DEG;
       const visible = lit && sunAlt < -6;
-      if (!cur) cur = { startMs: ms, peakAlt: -90, peakMs: ms, peakAz: az,
+      if (!cur) cur = { startMs: ms, peakAlt: -90, peakMs: ms, peakAz: az, riseAz: az,
                         magnitude: mag, rangeKm, visible, lit, sunAlt };
-      cur.endMs = ms;
+      cur.endMs = ms; cur.setAz = az;
       cur.visible = cur.visible || visible;
       if (alt > cur.peakAlt) {
         cur.peakAlt = alt; cur.peakMs = ms; cur.peakAz = az;
@@ -16378,6 +16539,9 @@ function cinemaPanelHtml() {
     <div class="d">Sixteen stops, from 408 kilometres up to 45.3 billion light years out.
       Letterboxed, scored from real rotation periods and orbital resonances, and pitched so
       that every jump in scale is a tenth of the one before.</div></div>`;
+  if (recSupported()) h += `<div class="ev" data-shot="longrec"><div class="t">Record The Long Shot<em>9:16 video</em></div>
+    <div class="d">The same shot, framed for a phone and saved as a video with the titles burned in.
+      Stop it whenever you like with the red button.</div></div>`;
   h += `<div class="sect">The director&#8217;s kit</div>`;
   h += `<div class="ev" data-shot="saved"><div class="t">Film my saved views<em>${
     saved.length} saved</em></div>
@@ -16403,6 +16567,7 @@ function wireCinemaPanel(b) {
     const k = el.dataset.shot;
     document.querySelector('#events').classList.remove('show');
     if (k === 'long') startShot(null, 'The Long Shot');
+    else if (k === 'longrec') recCinemaShot(null, 'The Long Shot');
     else {
       const keys = shotFromSaved({ hold: CINEOPT.hold });
       if (!keys) { toast('Save at least two viewpoints first'); return; }
@@ -18502,7 +18667,12 @@ function renderEvents() {
           cross overhead this week, but always while your sky is too bright to see them.
           The ${daylight.length} passes below are listed anyway.</div>`;
       }
+      MIS.passes = passes.concat(daylight);
+      if (passes.length) html = `<div class="passtools"><button class="mini" data-pcal="all">Add all ${passes.length} visible
+        pass${passes.length === 1 ? '' : 'es'} to my calendar</button></div>` + html;
+      let pk = -1;
       for (const p of passes.concat(daylight)) {
+        pk++;
         const [abs, rel] = fmtWhen(p.startMs);
         const mins = Math.max(1, Math.round((p.endMs - p.startMs) / 60000));
         const mag = p.magnitude;
@@ -18519,6 +18689,8 @@ function renderEvents() {
             ${esc(compassLabel(p.peakAz))}${p.visible ? ` · mag ${mag.toFixed(1)}` : ''}</div>
           <div class="d">${Math.round(p.rangeKm).toLocaleString()} km away at its highest —
             ${how}.${p.visible ? ' It crosses steadily, with no flashing lights.' : ''}</div>
+          ${p.visible ? `<div class="chips pchips"><span class="chip" data-pcal="${pk}">Add to calendar</span>
+            <span class="chip" data-palert="${pk}">Alert me</span><span class="chip" data-pshare="${pk}">Tell a friend</span></div>` : ''}
         </div>`;
       }
     }
@@ -18570,6 +18742,14 @@ function renderEvents() {
     b.innerHTML = relPanelHtml();
     wireRelPanel(b);
     return;
+  } else if (evTab === 'art') {
+    b.innerHTML = artPanelHtml();
+    wireArtPanel(b);
+    return;
+  } else if (evTab === 'orbit') {
+    b.innerHTML = owPanelHtml();
+    wireOwPanel(b);
+    return;
   } else {
     const rows = W.mode === 'sky' ? visibleNow() : [];
     if (W.mode !== 'sky') html = '<div class="evempty">Switch to Sky mode to see what is above you right now.</div>';
@@ -18586,6 +18766,21 @@ function renderEvents() {
   b.querySelectorAll('[data-ev]').forEach(el => el.onclick = () => {
     const e = (LIVE.events || []).find(x => String(x.ms) === el.dataset.ev);
     if (e) { gotoEvent(e); toast(eclipseTitle(e) + ' — ' + new Date(e.ms).toUTCString().replace(' GMT', ' UTC')); }
+  });
+  b.querySelectorAll('[data-pcal]').forEach(el => el.onclick = ev => {
+    ev.stopPropagation();
+    const k = el.dataset.pcal;
+    const list = k === 'all' ? MIS.passes.filter(p => p.visible) : [MIS.passes[+k]];
+    passIcs(list, place);
+  });
+  b.querySelectorAll('[data-palert]').forEach(el => el.onclick = ev => {
+    ev.stopPropagation();
+    passAlert(MIS.passes[+el.dataset.palert], place);
+    el.textContent = 'Alert set';
+  });
+  b.querySelectorAll('[data-pshare]').forEach(el => el.onclick = ev => {
+    ev.stopPropagation();
+    passShare(MIS.passes[+el.dataset.pshare], place);
   });
   b.querySelectorAll('[data-pass]').forEach(el => el.onclick = () => {
     W.time = +el.dataset.pass; W.playing = false;
@@ -18843,6 +19038,7 @@ async function boot() {
 
   buildSites();
   buildShip(W.realms.SOLAR);
+  missionsInit();
   relRegister();
   wireRelBar();
   wireSurface();
@@ -18905,6 +19101,8 @@ async function boot() {
   W.clock = new THREE.Clock();
   let hash = location.hash.slice(1);
   if (/^(birthday$|bday=)/.test(hash)) { window.__BDAY_HASH__ = hash; hash = ''; }
+  let misHash = null;
+  if (/^(artemis|iss|orbits)$/.test(hash)) { misHash = hash; hash = ''; }
   let restored = false;
   if (hash.startsWith('set=')) restored = importCollection(hash.slice(4));
   if (!restored) restored = applyState(hash);
@@ -18933,7 +19131,8 @@ async function boot() {
       if (window.requestIdleCallback) requestIdleCallback(warm, { timeout: 9000 });
       else setTimeout(warm, 5000);
       setTimeout(() => $('#hint').classList.add('hide'), 8000);
-      setTimeout(showOnboarding, 1100);
+      if (misHash) setTimeout(() => missionHash(misHash), 900);
+      else setTimeout(showOnboarding, 1100);
     });
   } else {
     animate();
@@ -18982,7 +19181,9 @@ function setupPost() {
 }
 
 function resize() {
-  const w = innerWidth, h = innerHeight, dpr = W.renderer.getPixelRatio();
+  let w = innerWidth;
+  const h = innerHeight, dpr = W.renderer.getPixelRatio();
+  if (W.recFrame && w / h > 0.5625) w = Math.round(h * 0.5625);
   W.renderer.setSize(w, h);
   if (W.composer) W.composer.setSize(w, h);
   if (SURF.cam) { SURF.cam.aspect = w / h; SURF.cam.updateProjectionMatrix(); }
@@ -19058,6 +19259,7 @@ function animate() {
   if (TIME.on) W.realms.COSMIC.root.visible = cosmicKnownYet();
   else W.realms.COSMIC.root.visible = true;
   updateLive();
+  updateMissions(dt);
 
   /* --- per-realm cameras --- */
   let dir;
@@ -19133,6 +19335,7 @@ function animate() {
   }
   W.renderer.setRenderTarget(null);
   if (W.captureNext) W.captureNext();
+  if (REC.on) recFrame();
 
   updateLabels();
   updateHUD();
@@ -19149,7 +19352,7 @@ function setStarScale(pts, v) { if (pts) pts.material.uniforms.uScale.value = v;
 
 let _slow = 0, _fast = 0, _autoStep = 0;
 function adaptQuality() {
-  if (W.quality !== 'high') return;
+  if (W.quality !== 'high' || W.recFrame) return;
   if (W.fps < 26) { _slow++; _fast = 0; } else if (W.fps > 52) { _fast++; _slow = 0; }
   const dprMax = Math.min(devicePixelRatio, 2);
   if (_slow > 6 && _autoStep < 2) {
@@ -19233,9 +19436,15 @@ function updateLabels() {
     el.addEventListener('click', ev => { ev.stopPropagation(); if (el._obj) flyTo(el._obj); });
     host.appendChild(el); labelPool.push(el);
   }
+  const fdisc = IS_TOUCH ? focusDisc() : null;
   labelPool.forEach((el, i) => {
     if (i >= shown.length) { el.style.display = 'none'; return; }
     const s = shown[i];
+    /* On a phone, a label floating over the world you are looking at would
+       catch a finger meant for the world itself. */
+    const shield = fdisc && s.o !== W.focus && Math.hypot(s.x - fdisc.x, s.y - fdisc.y) <= fdisc.r;
+    const pe = shield ? 'none' : '';
+    if (el.style.pointerEvents !== pe) el.style.pointerEvents = pe;
     el.style.display = '';
     el.style.left = s.x + 'px';
     el.style.top = (s.y - 16) + 'px';
@@ -19288,8 +19497,8 @@ function updateCompass() {
 }
 
 /* ------------------------------------------------------------- PICKING */
-function pick(px, py) {
-  let best = null, bestD = 34;
+function pick(px, py, maxD) {
+  let best = null, bestD = maxD || 34;
   for (const o of W.objects) {
     if (!knownYet(o)) continue;
     if (W.mode === 'sky') { if (!labelOK(o)) continue; }
@@ -19308,7 +19517,7 @@ function pick(px, py) {
     if (d < bestD) { bestD = d; best = o; }
   }
   if (!best) {
-    const si = pickSat(px, py, 13);
+    const si = pickSat(px, py, IS_TOUCH ? 9 : 13);
     if (si >= 0) return satObject(si);
   }
   return best;
@@ -19391,8 +19600,21 @@ function wireUI() {
   });
   const up = e => {
     if (drag && moved < 7 && performance.now() - downT < 420) {
-      const o = pick(e.clientX, e.clientY);
-      if (o) flyTo(o); else hideInfo();
+      const x = e.clientX, y = e.clientY;
+      const sheetOpen = W.infoObj && $('#info').classList.contains('show') && !SHEET.peek;
+      if (W.mode !== 'sky' && onFocusDisc(x, y)) {
+        /* A tap on the world you are already looking at keeps you there —
+           satellites and moons drawn in front of it no longer steal the tap. */
+        if (sheetOpen && IS_TOUCH) setInfoPeek(true);
+      } else if (IS_TOUCH && sheetOpen) {
+        /* On a touch screen the first tap into space only tucks the sheet
+           away, so you can look at what you came for. */
+        setInfoPeek(true);
+      } else {
+        const o = pick(x, y, IS_TOUCH ? 20 : 34);
+        if (o && o !== W.focus) flyTo(o);
+        else if (!o && !IS_TOUCH) hideInfo();
+      }
     }
     drag = false;
   };
@@ -19474,7 +19696,8 @@ function wireUI() {
     toast(r === 'copied' ? 'Link copied — it restores this exact view and moment'
         : r === 'shared' ? 'Shared' : 'Could not copy the link');
   };
-  $('#infoclose').onclick = hideInfo;
+  $('#infoclose').onclick = e => { e.stopPropagation(); hideInfo(); };
+  wireInfoSheet();
   const bi = $('#btnInstall');
   if (bi) {
     bi.onclick = promptInstall;
@@ -19683,6 +19906,73 @@ function esc(s) {
 }
 
 /* ---------------------------------------------------------- INFO PANEL */
+/* ------------------------------------------------------------ INFO SHEET */
+const SHEET = { peek: false };
+function setInfoPeek(on) {
+  const p = $('#info');
+  SHEET.peek = !!on;
+  p.classList.toggle('peek', SHEET.peek);
+  p.style.transform = '';
+  if (SHEET.peek) p.scrollTop = 0;
+  const m = $('#infomin');
+  if (m) m.title = SHEET.peek ? 'Show details' : 'Minimise';
+}
+
+/** Where the focused body sits on screen, and how big it looks (CSS pixels). */
+const _fdP = new THREE.Vector3();
+function focusDisc() {
+  const o = W.focus;
+  if (!o || !o.getPos || W.mode === 'sky' || W.mode === 'surface') return null;
+  const R = W.realms[o.realm];
+  if (!R) return null;
+  o.getPos(_fdP);
+  const dm = _fdP.distanceTo(W.camPos);
+  if (!(dm > 0)) return null;
+  _fdP.sub(W.camPos).divideScalar(R.unit);
+  const sp = screenOf(_fdP, R.cam);
+  if (!sp) return null;
+  const f = innerHeight / (2 * Math.tan((R.cam.fov * DEG) / 2));
+  const r = Math.atan((o.radius || 0) / dm) * f;
+  return { x: sp[0], y: sp[1], r: Math.max(r * 1.06, 26) };
+}
+function onFocusDisc(px, py) {
+  const d = focusDisc();
+  return !!d && Math.hypot(px - d.x, py - d.y) <= d.r;
+}
+
+/* Drag the sheet by its header: down to tuck it away, down again to close,
+   up (or a tap) to bring the details back. */
+function wireInfoSheet() {
+  const p = $('#info'), hd = $('#infohd');
+  const mb = $('#infomin');
+  if (mb) mb.onclick = e => { e.stopPropagation(); setInfoPeek(!SHEET.peek); };
+  if (!hd) return;
+  let y0 = null, dy = 0, pid = null;
+  hd.addEventListener('pointerdown', e => {
+    if (e.target.closest('button')) return;
+    y0 = e.clientY; dy = 0; pid = e.pointerId;
+    try { hd.setPointerCapture(pid); } catch (_) {}
+    p.classList.add('dragging');
+  });
+  hd.addEventListener('pointermove', e => {
+    if (y0 === null || e.pointerId !== pid) return;
+    dy = e.clientY - y0;
+    const lim = SHEET.peek ? Math.max(dy, -60) : Math.max(dy, -8);
+    p.style.transform = `translateY(${lim}px)`;
+  });
+  const end = e => {
+    if (y0 === null || e.pointerId !== pid) return;
+    y0 = null; pid = null;
+    p.classList.remove('dragging');
+    p.style.transform = '';
+    if (Math.abs(dy) < 6) { setInfoPeek(!SHEET.peek); return; }     // a tap
+    if (dy > 46) { if (SHEET.peek) hideInfo(); else setInfoPeek(true); }
+    else if (dy < -30 && SHEET.peek) setInfoPeek(false);
+  };
+  hd.addEventListener('pointerup', end);
+  hd.addEventListener('pointercancel', end);
+}
+
 function showInfo(o) {
   const p = $('#info');
   const d = o.data || {};
@@ -19774,9 +20064,11 @@ function showInfo(o) {
   $('#infobody').querySelectorAll('[data-go]').forEach(el =>
     el.onclick = () => { const t = W.byId.get(el.dataset.go); if (t) flyTo(t); });
   p.classList.add('show');
+  p.classList.toggle('peek', SHEET.peek);
+  p.style.transform = '';
   W.infoObj = o;
 }
-function hideInfo() { $('#info').classList.remove('show'); W.infoObj = null; }
+function hideInfo() { $('#info').classList.remove('show', 'peek'); W.infoObj = null; }
 
 function subline(o) {
   if (o.exo) return o.exo._ly.toFixed(1) + ' light-years · ' + o.exo.p.length +
@@ -19887,6 +20179,1478 @@ const ICON = {
   play: '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
   pause: '<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
 };
+
+
+/* ==== missions.js ==== */
+/* =============================================================================
+   ARTEMIS II · ORBIT WATCH · VERTICAL VIDEO · PASS ALERTS
+
+   Everything here hangs off one Earth-centred group in the solar realm, whose
+   local unit is the realm's (1,000 km). Geometry is built in that frame once
+   and the group is moved to the Earth every frame, the same way the satellite
+   cloud is.
+   ========================================================================== */
+
+const MIS = { group: null, ready: false };
+const _misE = new THREE.Vector3(), _misA = new THREE.Vector3(), _misB = new THREE.Vector3();
+const _glowCache = {};
+
+function misGlow(hex) {
+  if (_glowCache[hex]) return _glowCache[hex];
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d');
+  const col = new THREE.Color(hex);
+  const rgb = `${Math.round(col.r * 255)},${Math.round(col.g * 255)},${Math.round(col.b * 255)}`;
+  const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, 'rgba(255,255,255,1)');
+  gr.addColorStop(0.12, `rgba(${rgb},0.95)`);
+  gr.addColorStop(0.35, `rgba(${rgb},0.32)`);
+  gr.addColorStop(1, `rgba(${rgb},0)`);
+  g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return (_glowCache[hex] = t);
+}
+
+function misSprite(hex, px) {
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: misGlow(hex), color: 0xffffff, transparent: true, depthWrite: false,
+    depthTest: false, sizeAttenuation: false, blending: THREE.AdditiveBlending,
+  }));
+  s.userData.px = px;
+  s.renderOrder = 6; s.frustumCulled = false;
+  return s;
+}
+
+/* Sprites with sizeAttenuation off are sized as a fraction of the view height;
+   keep them a constant number of CSS pixels whatever the screen. */
+function misSizeSprite(s) {
+  const h = innerHeight || 800;
+  const f = (s.userData.px || 16) / h * 2 * Math.tan((W.fov || 52) * DEG / 2);
+  s.scale.set(f, f, 1);
+}
+
+/** Geocentric equatorial km → group-local units (1,000 km), scene axes. */
+function misEq(xkm, ykm, zkm, out) {
+  return eqToScene(xkm / 1000, ykm / 1000, zkm / 1000, out);
+}
+
+function missionsInit() {
+  const realm = W.realms.SOLAR;
+  MIS.group = new THREE.Group();
+  MIS.group.frustumCulled = false;
+  realm.root.add(MIS.group);
+  artInit();
+  owInit();
+  alertsLoad();
+  wireArtBar(); wireOwBar(); wireRec();
+  MIS.ready = true;
+  window.__MIS__ = { ART, OW, REC, ALERTS, artStart, artStop, artState, artKm, owScan, owShowRing, owShowTrain,
+    owShowDebris, owWatchPair, owClearScene, owStats, recStart, recStop, passIcs, passAlert, passShare, missionHash,
+    recCinemaShot, alertFire };
+}
+
+function updateMissions(dt) {
+  if (!MIS.ready) return;
+  const earth = W.byId.get('earth');
+  if (!earth) return;
+  earth.getPos(_misE);
+  MIS.group.position.copy(_misE).sub(W.camPos).divideScalar(UNIT.SOLAR);
+  const near = W.camPos.distanceTo(_misE) < 6e10;
+  MIS.group.visible = near && W.mode !== 'sky' && W.mode !== 'surface';
+  artUpdate(dt);
+  owUpdate(dt);
+  alertsTick();
+}
+
+function misRate(r) {
+  if (r != null) W.rate = r;
+  const a = Math.abs(W.rate);
+  const t = a === 1 ? 'real time' : a < 1 ? a + '\u00d7 slow motion' : a < 3600 ? (a / 60).toFixed(a < 600 ? 1 : 0) + ' min/s'
+    : a < 86400 ? (a / 3600).toFixed(1) + ' h/s' : (a / 86400).toFixed(1) + ' days/s';
+  const el = $('#rate');
+  if (el && el.textContent !== t) el.textContent = t;
+}
+/** Point the camera so it looks back along d (a unit vector from focus to camera). */
+function misAim(d) {
+  W.tPitch = THREE.MathUtils.clamp(Math.asin(THREE.MathUtils.clamp(d.y, -1, 1)), -1.45, 1.45);
+  W.tYaw = Math.atan2(d.x, d.z);
+  while (W.tYaw - W.yaw > Math.PI) W.tYaw -= 2 * Math.PI;
+  while (W.tYaw - W.yaw < -Math.PI) W.tYaw += 2 * Math.PI;
+}
+function misKm(d) { return d < 1 ? 'under 1 km' : d < 10 ? d.toFixed(1) + ' km' : Math.round(d) + ' km'; }
+function misFmtInt(n) { return Math.round(n).toLocaleString('en-US'); }
+function misUTC(ms, sec) {
+  const d = new Date(ms);
+  const p = n => String(n).padStart(2, '0');
+  const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()];
+  return `${d.getUTCDate()} ${mon} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}` +
+    (sec ? ':' + p(d.getUTCSeconds()) : '') + ' UTC';
+}
+function misLocal(ms) {
+  return new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+
+/* =============================================================================
+   ARTEMIS II — the flown trajectory
+
+   Orion's real path, from JPL Horizons (target -1024, "Artemis_II_merged"),
+   geocentric, ICRF, km, sampled from separation off the upper stage on 2 April
+   to 3,400 km above the Pacific on the evening of 10 April 2026. Minutes from
+   the first sample, then x, y, z. Interpolated with cubic Hermite splines on
+   finite-difference tangents, so the 10-minute samples around perigee and the
+   2-hour ones in the long coasts join without kinks.
+   ========================================================================== */
+const ART_T0 = Date.UTC(2026, 3, 2, 2, 0, 0) - 69184;      // TDB → UTC
+const ART_LAUNCH = Date.UTC(2026, 3, 1, 22, 35, 12);
+const ART_TLI = Date.UTC(2026, 3, 2, 23, 49, 0);
+const ART_SPLASH = Date.UTC(2026, 3, 11, 0, 7, 0);
+const ART_REC_KM = 400171;                                  // Apollo 13, from Earth's surface
+const ART_REC_MI = 248655;
+const R_EARTH_KM = 6371, R_MOON_KM = 1737.4;
+const ART_RAW = [0,-24603,-12929,-7037,60,-29093,-23923,-12979,120,-31024,-32928,-17845,180,-31496,-40439,-21901,240,-31013,-46735,-25300,300,-29834,-51990,-28134,360,-28120,-56317,-30467,420,-25980,-59791,-32338,480,-23485,-62460,-33772,540,-20697,-64354,-34786,600,-17671,-65493,-35394,660,-14424,-65879,-35583,720,-11007,-65497,-35356,780,-7456,-64318,-34699,840,-3808,-62300,-33588,900,-106,-59375,-31989,960,3596,-55447,-29850,1020,7219,-50372,-27090,1080,10640,-43927,-23596,1140,13627,-35746,-19170,1150,14053,-34174,-18321,1160,14451,-32531,-17434,1170,14815,-30814,-16506,1180,15140,-29016,-15535,1190,15419,-27130,-14518,1200,15644,-25148,-13449,1210,15803,-23062,-12324,1220,15883,-20859,-11137,1230,15863,-18527,-9880,1240,15718,-16048,-8546,1250,15408,-13403,-7123,1260,14877,-10568,-5599,1270,14035,-7514,-3959,1280,12726,-4219,-2192,1290,10667,-693,-305,1300,7328,2858,1587,1310,2087,5487,2968,1320,-4168,5707,2995,1330,-9438,4123,2035,1340,-13547,1952,781,1350,-16886,-349,-527,1360,-19714,-2646,-1824,1370,-22183,-4898,-3088,1380,-24384,-7092,-4316,1390,-26380,-9226,-5508,1400,-28211,-11304,-6665,1410,-29906,-13328,-7791,1420,-31489,-15301,-8888,1430,-32976,-17228,-9957,1440,-34379,-19112,-11001,1450,-35710,-20955,-12023,1460,-36977,-22761,-13022,1470,-38187,-24531,-14002,1480,-39346,-26269,-14963,1490,-40458,-27976,-15906,1500,-41529,-29654,-16833,1560,-47240,-39192,-22093,1680,-56241,-56220,-31461,1800,-63311,-71349,-39764,1920,-69171,-85124,-47314,2040,-74182,-97859,-54285,2160,-78557,-109753,-60790,2280,-82429,-120946,-66905,2400,-85894,-131537,-72688,2520,-89018,-141602,-78181,2640,-91852,-151201,-83416,2760,-94435,-160382,-88421,2880,-96799,-169184,-93217,3000,-98968,-177638,-97821,3120,-100963,-185772,-102249,3240,-102802,-193609,-106515,3360,-104496,-201166,-110626,3480,-106064,-208466,-114596,3600,-107513,-215523,-118433,3720,-108855,-222348,-122143,3840,-110096,-228955,-125733,3960,-111246,-235353,-129209,4080,-112310,-241553,-132576,4200,-113296,-247562,-135839,4320,-114209,-253390,-139003,4440,-115067,-259034,-142077,4560,-115837,-264528,-145053,4680,-116562,-269851,-147942,4800,-117234,-275016,-150746,4920,-117857,-280029,-153467,5040,-118436,-284894,-156108,5160,-119050,-289566,-158703,5280,-119566,-294142,-161196,5400,-120052,-298582,-163615,5520,-120515,-302889,-165963,5640,-120959,-307067,-168243,5760,-121392,-311116,-170458,5880,-121819,-315046,-172597,6000,-122249,-318858,-174663,6120,-122701,-322547,-176666,6240,-123195,-326111,-178606,6360,-123754,-329548,-180483,6480,-124418,-332849,-182295,6600,-125247,-335995,-184038,6720,-126354,-338940,-185684,6740,-126577,-339402,-185948,6760,-126815,-339855,-186209,6780,-127068,-340296,-186465,6800,-127339,-340723,-186716,6820,-127629,-341134,-186961,6840,-127941,-341526,-187198,6860,-128277,-341896,-187426,6880,-128639,-342239,-187643,6900,-129029,-342548,-187847,6920,-129449,-342815,-188034,6940,-129898,-343031,-188199,6960,-130373,-343184,-188338,6980,-130866,-343261,-188444,7000,-131366,-343252,-188513,7020,-131854,-343150,-188540,7040,-132311,-342957,-188525,7060,-132719,-342681,-188471,7080,-133067,-342337,-188385,7100,-133352,-341942,-188272,7120,-133573,-341510,-188140,7140,-133737,-341052,-187993,7160,-133850,-340576,-187836,7180,-133917,-340090,-187671,7200,-133944,-339596,-187502,7220,-133937,-339098,-187328,7240,-133900,-338598,-187151,7260,-133836,-338096,-186972,7280,-133749,-337594,-186792,7300,-133641,-337091,-186610,7320,-133515,-336589,-186427,7340,-133372,-336087,-186243,7360,-133214,-335585,-186058,7380,-133043,-335084,-185872,7400,-132859,-334582,-185685,7420,-132664,-334081,-185498,7440,-132459,-333580,-185310,7560,-131047,-330570,-184163,7680,-129398,-327535,-182984,7800,-127568,-324459,-181762,7920,-125606,-321320,-180498,8040,-123529,-318109,-179185,8160,-121351,-314816,-177818,8280,-119083,-311434,-176395,8400,-116733,-307956,-174912,8520,-114306,-304375,-173367,8640,-111808,-300683,-171758,8760,-109240,-296878,-170080,8880,-106601,-292952,-168334,9000,-103899,-288903,-166512,9120,-101131,-284724,-164612,9240,-98300,-280409,-162631,9360,-95404,-275954,-160568,9480,-92442,-271353,-158418,9600,-89419,-266598,-156176,9720,-86332,-261683,-153839,9840,-83181,-256602,-151403,9960,-79965,-251347,-148863,10080,-76683,-245909,-146213,10200,-73335,-240280,-143449,10320,-69919,-234450,-140563,10440,-66435,-228407,-137549,10560,-62872,-222140,-134408,10680,-59244,-215635,-131114,10800,-55542,-208877,-127665,10920,-51764,-201848,-124051,11040,-47909,-194529,-120257,11160,-43973,-186896,-116269,11280,-39951,-178923,-112071,11400,-35847,-170579,-107638,11520,-31654,-161825,-102947,11640,-27375,-152618,-97960,11760,-23006,-142901,-92642,11820,-20785,-137829,-89844,11840,-20040,-136105,-88890,11860,-19292,-134362,-87923,11880,-18541,-132602,-86945,11900,-17788,-130822,-85954,11920,-17032,-129024,-84951,11940,-16273,-127206,-83935,11960,-15512,-125368,-82905,11980,-14748,-123508,-81862,12000,-13982,-121628,-80804,12020,-13213,-119725,-79732,12040,-12441,-117799,-78645,12060,-11667,-115850,-77542,12080,-10891,-113877,-76422,12100,-10112,-111879,-75286,12120,-9330,-109854,-74132,12140,-8547,-107803,-72961,12160,-7761,-105724,-71770,12180,-6973,-103616,-70560,12200,-6183,-101478,-69329,12220,-5391,-99309,-68077,12240,-4597,-97107,-66802,12260,-3802,-94871,-65504,12280,-3005,-92600,-64182,12300,-2207,-90292,-62834,12320,-1408,-87944,-61459,12340,-608,-85556,-60055,12360,192,-83125,-58621,12380,991,-80649,-57155,12400,1791,-78124,-55655,12420,2589,-75549,-54119,12440,3385,-72920,-52544,12460,4179,-70233,-50928,12480,4969,-67485,-49267,12500,5754,-64671,-47558,12520,6532,-61785,-45797,12540,7303,-58822,-43978,12560,8064,-55775,-42098,12580,8812,-52635,-40148,12600,9543,-49394,-38120,12620,10251,-46040,-36005,12640,10932,-42559,-33791,12660,11575,-38935,-31463,12680,12169,-35145,-29001,12700,12695,-31162,-26380,12720,13127,-26949,-23563,12740,13421,-22456,-20501,12760,13499,-17608,-17114,12780,13211,-12296,-13272,12800,12202,-6351,-8732,12820,9352,376,-2999];
+
+const ART = {
+  n: 0, t: null, p: null, t1: 0,
+  on: false, paused: false, auto: true, setDist: 0, rate: 3.5,
+  root: null, full: null, flown: null, marker: null, obj: null,
+  fineT: null, ms: [], next: 0, maxKm: 0, recHit: false, caption: '', captionAt: 0,
+  recording: false, cur: { rE: 0, rM: 0, v: 0, ms: 0 },
+};
+
+/* The app's Moon is in ecliptic-of-date coordinates; Horizons is J2000.
+   Precess Orion forward in longitude so the two meet where they really did. */
+function artPrecess(v, ms) {
+  const T = (ms - Date.UTC(2000, 0, 1, 12)) / (36525 * 864e5);
+  const p = (5028.796195 * T) / 3600 * DEG;
+  const c = Math.cos(p), s = Math.sin(p);
+  // scene = (x, z, -y) of ecliptic (x, y, z): rotate about scene Y
+  const ex = v.x, ey = -v.z;
+  const nx = ex * c - ey * s, ny = ex * s + ey * c;
+  v.x = nx; v.z = -ny;
+  return v;
+}
+
+function artInit() {
+  const n = ART_RAW.length / 4;
+  ART.n = n;
+  ART.t = new Float64Array(n);
+  ART.p = new Float64Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    ART.t[i] = ART_T0 + ART_RAW[i * 4] * 60000;
+    ART.p[i * 3] = ART_RAW[i * 4 + 1];
+    ART.p[i * 3 + 1] = ART_RAW[i * 4 + 2];
+    ART.p[i * 3 + 2] = ART_RAW[i * 4 + 3];
+  }
+  ART.t1 = ART.t[n - 1];
+
+  /* the path, sampled every 6 minutes, coloured by phase */
+  const step = 6 * 60000;
+  const m = Math.floor((ART.t1 - ART_T0) / step) + 1;
+  const pos = new Float32Array(m * 3), col = new Float32Array(m * 3);
+  ART.fineT = new Float64Array(m);
+  const k = [0, 0, 0], v = new THREE.Vector3();
+  const cA = new THREE.Color(0x66b3ff), cB = new THREE.Color(0xffd27a), cC = new THREE.Color(0xff9a6b), cc = new THREE.Color();
+  for (let i = 0; i < m; i++) {
+    const ms = ART_T0 + i * step;
+    ART.fineT[i] = ms;
+    artKm(ms, k);
+    misEq(k[0], k[1], k[2], v);
+    artPrecess(v, ms);
+    pos[i * 3] = v.x; pos[i * 3 + 1] = v.y; pos[i * 3 + 2] = v.z;
+    const u = (ms - ART_TLI) / (ART.t1 - ART_TLI);
+    if (ms < ART_TLI) cc.copy(cA);
+    else if (u < 0.5) cc.copy(cA).lerp(cB, u / 0.5);
+    else cc.copy(cB).lerp(cC, (u - 0.5) / 0.5);
+    col[i * 3] = cc.r; col[i * 3 + 1] = cc.g; col[i * 3 + 2] = cc.b;
+  }
+  const mk = (op) => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6);
+    const l = new THREE.Line(g, new THREE.LineBasicMaterial({
+      vertexColors: true, transparent: true, opacity: op, depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    }));
+    l.frustumCulled = false; l.renderOrder = 5;
+    return l;
+  };
+  ART.root = new THREE.Group();
+  ART.full = mk(0.22);
+  ART.flown = mk(0.95);
+  ART.marker = misSprite(0xffe1a0, 22);
+  ART.root.add(ART.full, ART.flown, ART.marker);
+  ART.root.visible = false;
+  MIS.group.add(ART.root);
+
+  artFindMoments();
+
+  const earth = W.byId.get('earth');
+  const _o = new THREE.Vector3();
+  ART.obj = reg({
+    id: 'artemis2', name: 'Orion · Artemis II', kind: 'Crewed spacecraft · lunar flyby, April 2026',
+    realm: 'SOLAR', radius: 2e5, color: 0xffd27a, craft: true, priority: 0.4,
+    get suppressLabel() { return !artVisible(); },
+    data: {
+      blurb: 'Reid Wiseman, Victor Glover, Christina Koch and Jeremy Hansen: the first people ' +
+        'to leave Earth orbit since 1972, on a free-return loop around the far side of the Moon. ' +
+        'On 6 April 2026 they went farther from Earth than anyone ever had. This is the path they ' +
+        'actually flew, from NASA/JPL Horizons.',
+      get facts() { return artFacts(); },
+    },
+    getPos: v => {
+      earth.getPos(v);
+      const ms = Math.min(Math.max(W.time, ART_T0), ART.t1);
+      artKm(ms, k);
+      misEq(k[0], k[1], k[2], _o);
+      artPrecess(_o, ms);
+      return v.addScaledVector(_o, UNIT.SOLAR);
+    },
+    labelDist: [3e4, 6e9],
+  });
+}
+
+function artVisible() {
+  return ART.on || (W.time >= ART_T0 && W.time <= ART.t1);
+}
+
+/** Orion's geocentric equatorial position in km at ms (clamped to the data). */
+function artKm(ms, out) {
+  const T = ART.t, P = ART.p, n = ART.n;
+  if (ms <= T[0]) { out[0] = P[0]; out[1] = P[1]; out[2] = P[2]; return out; }
+  if (ms >= T[n - 1]) { const o = (n - 1) * 3; out[0] = P[o]; out[1] = P[o + 1]; out[2] = P[o + 2]; return out; }
+  let lo = 0, hi = n - 1;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (T[mid] <= ms) lo = mid; else hi = mid; }
+  const i = lo, j = hi;
+  const h = T[j] - T[i], u = (ms - T[i]) / h;
+  const u2 = u * u, u3 = u2 * u;
+  const h00 = 2 * u3 - 3 * u2 + 1, h10 = u3 - 2 * u2 + u, h01 = -2 * u3 + 3 * u2, h11 = u3 - u2;
+  for (let c = 0; c < 3; c++) {
+    const p0 = P[i * 3 + c], p1 = P[j * 3 + c];
+    const m0 = i > 0 ? (P[j * 3 + c] - P[(i - 1) * 3 + c]) / (T[j] - T[i - 1]) : (p1 - p0) / h;
+    const m1 = j < n - 1 ? (P[(j + 1) * 3 + c] - P[i * 3 + c]) / (T[j + 1] - T[i]) : (p1 - p0) / h;
+    out[c] = h00 * p0 + h10 * h * m0 + h01 * p1 + h11 * h * m1;
+  }
+  return out;
+}
+
+const _artK = [0, 0, 0], _artK2 = [0, 0, 0], _artV = new THREE.Vector3(), _artM = new THREE.Vector3();
+
+/** Range from Earth's centre, range from the Moon's centre (km), speed (km/s). */
+function artState(ms, out) {
+  artKm(ms, _artK);
+  const rE = Math.hypot(_artK[0], _artK[1], _artK[2]);
+  misEq(_artK[0], _artK[1], _artK[2], _artV);
+  artPrecess(_artV, ms);
+  moonPosGeo(jdeFromMs(ms), _artM).divideScalar(1e6);           // → 1,000 km units
+  const rM = _artV.distanceTo(_artM) * 1000;
+  artKm(ms + 30000, _artK2);
+  const v = Math.hypot(_artK2[0] - _artK[0], _artK2[1] - _artK[1], _artK2[2] - _artK[2]) / 30;
+  out.rE = rE; out.rM = rM; out.v = v; out.ms = ms;
+  return out;
+}
+
+/* The moments worth stopping for, found in the data rather than typed in. */
+function artFindMoments() {
+  const st = {};
+  let soiIn = 0, soiOut = 0, rec = 0, closest = { d: 1e12, ms: 0 }, far = { d: 0, ms: 0 };
+  let prevE = 0, prevM = 1e12;
+  for (let ms = ART_T0; ms <= ART.t1; ms += 60000) {
+    artState(ms, st);
+    if (!rec && prevE && prevE - R_EARTH_KM < ART_REC_KM && st.rE - R_EARTH_KM >= ART_REC_KM) rec = ms;
+    if (!soiIn && st.rM < 66100 && prevM >= 66100) soiIn = ms;
+    if (soiIn && !soiOut && st.rM >= 66100 && prevM < 66100) soiOut = ms;
+    if (st.rM < closest.d) closest = { d: st.rM, ms };
+    if (st.rE > far.d) far = { d: st.rE, ms };
+    prevE = st.rE; prevM = st.rM;
+  }
+  ART.maxKm = far.d;
+  ART.closest = closest;
+  ART.far = far;
+  const altMoon = closest.d - R_MOON_KM;
+  const farMi = (far.d - R_EARTH_KM) / 1.609344;
+  ART.ms = [
+    { ms: ART_T0, k: 'start', t: 'Flying free', d: 'Three and a half hours after launch, Orion has separated from its upper stage and is climbing a long, high Earth orbit to check out its systems.' },
+    { ms: ART_TLI, k: 'tli', t: 'Trans-lunar injection', d: 'Orion’s main engine fires for six minutes at the bottom of the orbit. Nothing else is needed to reach the Moon and come home again.' },
+    soiIn && { ms: soiIn, k: 'soi', t: 'Into the Moon’s sphere', d: 'From here the Moon’s gravity matters more than Earth’s to the shape of the path.' },
+    rec && { ms: rec, k: 'record', t: 'Farther than Apollo 13', d: `Past ${misFmtInt(ART_REC_MI)} miles: no human being has ever been this far from home.` },
+    { ms: closest.ms, k: 'closest', t: 'Around the far side', d: `${misFmtInt(altMoon)} km (${misFmtInt(altMoon / 1.609344)} mi) above the lunar surface, with the Earth hidden behind the Moon and the radio silent.` },
+    { ms: far.ms, k: 'far', t: 'The new record', d: `${misFmtInt(farMi)} miles from Earth — the farthest any human has ever travelled.` },
+    soiOut && { ms: soiOut, k: 'soiout', t: 'Leaving the Moon', d: 'Earth’s gravity takes over again. The rest of the way home is a long fall.' },
+    { ms: ART.t1, k: 'home', t: 'Coming home', d: 'Minutes from the atmosphere at nearly 40,000 km/h. Splashdown followed at 00:07 UTC on 11 April, off San Diego.' },
+  ].filter(Boolean).sort((a, b) => a.ms - b.ms);
+}
+
+function artFacts() {
+  const st = artState(Math.min(Math.max(W.time, ART_T0), ART.t1), {});
+  const rows = [
+    ['Crew', 'Wiseman · Glover · Koch · Hansen'],
+    ['Launched', '1 April 2026, 22:35 UTC, LC-39B'],
+    ['Distance from Earth', `${misFmtInt((st.rE - R_EARTH_KM) / 1.609344)} mi`],
+    ['Above the Moon', `${misFmtInt(st.rM - R_MOON_KM)} km`],
+    ['Speed', `${misFmtInt(st.v * 3600)} km/h`],
+    ['Farthest from Earth', `${misFmtInt((ART.maxKm - R_EARTH_KM) / 1.609344)} mi`],
+    ['Trajectory', 'NASA/JPL Horizons'],
+  ];
+  return rows;
+}
+
+function artMet(ms) {
+  const s = Math.max(0, (ms - ART_LAUNCH) / 1000);
+  const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+  return `T+ ${d}d ${String(h).padStart(2, '0')}h ${String(m).padStart(2, '0')}m`;
+}
+
+function artPhase(ms, st) {
+  if (ms < ART_TLI) return 'high Earth orbit';
+  if (st.rM < 66100) return st.rM < 20000 ? 'lunar flyby' : 'in the Moon’s sphere';
+  return ms < ART.closest.ms ? 'outbound to the Moon' : 'homeward';
+}
+
+function artStart(opts = {}) {
+  if (W.mode === 'sky') exitSky();
+  if (W.mode === 'surface') exitSurface();
+  if (CINE.on) stopShot(true);
+  stopTour();
+  if (SHIP && SHIP.active) endFlight();
+  hideInfo();
+  $('#events').classList.remove('show');
+  ART.on = true; ART.paused = false; ART.auto = true; ART.recHit = false;
+  ART.next = 0;
+  W.time = opts.at || ART_T0;
+  while (ART.next < ART.ms.length && ART.ms[ART.next].ms < W.time - 1000) ART.next++;
+  W.playing = true;
+  ART.rate = 3.5;
+  W.rate = ART.rate * 3600;
+  W.transition = { from: W.focusPos.clone(), to: ART.obj, t: 0, dur: 1.6 };
+  W.targetDist = ART.setDist = 1.1e8;
+  if (ART.savedCon == null) { ART.savedCon = W.showConstellations; W.showConstellations = false; syncToggles(); }
+  document.body.classList.add('artemis');
+  $('#artbar').classList.add('show');
+  $('#arPause').textContent = 'pause';
+  $('#arCam').textContent = 'camera: auto';
+  ART.caption = 'Artemis II'; ART.captionAt = performance.now();
+  if (opts.record) {
+    ART.recording = true;
+    recStart({ title: 'Artemis II', sub: 'the real path around the Moon', kind: 'artemis' });
+  }
+}
+
+function artRestore() {
+  if (ART.savedCon != null) { W.showConstellations = ART.savedCon; ART.savedCon = null; syncToggles(); }
+}
+function artStop(quiet) {
+  if (!ART.on) return;
+  ART.on = false;
+  artRestore();
+  W.setRate(3); W.playing = false;
+  document.body.classList.remove('artemis');
+  $('#artbar').classList.remove('show');
+  if (ART.recording) { ART.recording = false; recStop(); }
+  syncTime();
+  if (!quiet) toast('Replay ended — Orion stays on the path at this moment');
+}
+
+function artUpdate(dt) {
+  const vis = artVisible();
+  ART.root.visible = vis;
+  if (!vis) return;
+  const ms = Math.min(Math.max(W.time, ART_T0), ART.t1);
+  artKm(ms, _artK);
+  misEq(_artK[0], _artK[1], _artK[2], ART.marker.position);
+  artPrecess(ART.marker.position, ms);
+  misSizeSprite(ART.marker);
+  const idx = Math.min(ART.fineT.length, Math.max(0, Math.ceil((ms - ART_T0) / 360000)));
+  ART.flown.geometry.setDrawRange(0, idx);
+  if (!ART.on) return;
+
+  const st = artState(ms, ART.cur);
+  if (!ART.paused) {
+    /* pace: hours of mission per second of screen */
+    const want = st.rM < 26000 ? 0.55 : st.rE < 16000 ? 0.4 : st.rM < 60000 ? 1.6 : 4.2;
+    ART.rate += (want - ART.rate) * Math.min(1, dt * 1.8);
+    W.rate = ART.rate * 3600;
+    W.playing = true;
+  }
+  /* camera: frame whatever is nearer, the Earth or the Moon */
+  if (ART.auto && !W.transition) {
+    if (Math.abs(Math.log(W.targetDist / ART.setDist)) > 0.02) ART.auto = false;   // the user zoomed
+    else {
+      const d = Math.min(st.rE, st.rM * 1.25);
+      ART.setDist = THREE.MathUtils.clamp(d * 2.4, 32000, 560000) * 1000;
+      W.targetDist = ART.setDist;
+      W.tYaw += dt * 0.035;
+      if (!$('#arCam').textContent.endsWith('auto')) $('#arCam').textContent = 'camera: auto';
+    }
+    if (!ART.auto) $('#arCam').textContent = 'camera: you';
+  }
+  while (ART.next < ART.ms.length && W.time >= ART.ms[ART.next].ms) {
+    const m = ART.ms[ART.next++];
+    if (m.k !== 'start') {
+      toast(m.t + ' — ' + m.d, 5200);
+      ART.caption = m.t; ART.captionAt = performance.now();
+    }
+  }
+  artHud(st);
+  if (W.time >= ART.t1) {
+    W.time = ART.t1;
+    if (ART.recording) { ART.recording = false; recStop(); }
+    ART.on = false;
+    artRestore();
+    W.playing = false; W.setRate(3); syncTime();
+    document.body.classList.remove('artemis');
+    setTimeout(() => $('#artbar').classList.remove('show'), 6000);
+  }
+}
+
+function artHud(st) {
+  const surf = st.rE - R_EARTH_KM;
+  const mi = surf / 1.609344;
+  $('#arMi').textContent = misFmtInt(mi);
+  $('#arKm').textContent = misFmtInt(surf) + ' km from Earth’s surface';
+  $('#arMet').textContent = artMet(st.ms);
+  $('#arMoon').textContent = misFmtInt(st.rM - R_MOON_KM) + ' km';
+  $('#arSpd').textContent = misFmtInt(st.v * 3600) + ' km/h';
+  $('#arDate').textContent = misUTC(st.ms);
+  $('#arPhase').textContent = artPhase(st.ms, st);
+  misRate();
+  const f = Math.min(1, surf / ART_REC_KM);
+  $('#arRecBar').style.width = (f * 100).toFixed(2) + '%';
+  const over = surf >= ART_REC_KM;
+  $('#artbar').classList.toggle('rec', over);
+  $('#arRecTx').textContent = over
+    ? `★ ${misFmtInt(mi - ART_REC_MI)} mi beyond Apollo 13 — farthest humans have ever been`
+    : `Apollo 13 record · ${misFmtInt(ART_REC_MI)} mi · ${(f * 100).toFixed(1)}%`;
+}
+
+function wireArtBar() {
+  $('#arStop').onclick = () => artStop();
+  $('#arPause').onclick = () => {
+    ART.paused = !ART.paused;
+    W.playing = !ART.paused;
+    $('#arPause').textContent = ART.paused ? 'play' : 'pause';
+    syncTime();
+  };
+  $('#arCam').onclick = () => {
+    ART.auto = true; ART.setDist = W.targetDist;
+    $('#arCam').textContent = 'camera: auto';
+  };
+  $('#arRec').onclick = () => {
+    if (REC.on) { recStop(); return; }
+    artStart({ record: true });
+  };
+}
+
+function artPanelHtml() {
+  let h = `<div class="qhead">The first crew to leave Earth orbit since Apollo 17, on the path
+    they actually flew — Horizons’ reconstruction of Orion’s trajectory, from
+    separation on 2 April to the edge of the atmosphere on 10 April 2026. Watch the distance
+    counter pass Apollo 13’s 56-year-old record.</div>`;
+  h += `<div class="ev" data-art="play"><div class="t">Replay the mission<em>about 70 s</em></div>
+    <div class="d">Nine days, paced so the flyby slows down and the coasts don’t. The camera
+    frames whichever of the Earth and Moon is nearer; drag to look, scroll to take over.</div></div>`;
+  if (recSupported()) h += `<div class="ev" data-art="rec"><div class="t">Record it as a vertical video<em>9:16</em></div>
+    <div class="d">The whole replay, with the live distance counter burned in, ready for Reels,
+    TikTok or Shorts. Stops by itself at splashdown.</div></div>`;
+  h += `<div class="sect">Jump to a moment</div>`;
+  for (const m of ART.ms) {
+    h += `<div class="ev" data-artat="${m.ms}"><div class="t">${esc(m.t)}<em>${esc(artMet(m.ms).replace('T+ ', ''))}</em></div>
+      <div class="w">${esc(misUTC(m.ms))}</div><div class="d">${esc(m.d)}</div></div>`;
+  }
+  h += `<div class="evempty">Trajectory: NASA/JPL Horizons, Artemis II merged solution (public domain).
+    Mission times: NASA.</div>`;
+  return h;
+}
+
+function wireArtPanel(b) {
+  b.querySelectorAll('[data-art]').forEach(el => el.onclick = () => {
+    artStart({ record: el.dataset.art === 'rec' });
+  });
+  b.querySelectorAll('[data-artat]').forEach(el => el.onclick = () => {
+    const ms = +el.dataset.artat;
+    artStart({ at: Math.max(ART_T0, ms - 20 * 60000) });
+  });
+}
+
+
+/* =============================================================================
+   ORBIT WATCH
+
+   The geostationary ring, the newest Starlink train, the big debris clouds and
+   the closest passes of the next three quarters of an hour — all computed here,
+   in the browser, from public orbital elements.
+   ========================================================================== */
+const GEO_KM = 42164;
+const OW = {
+  ring: null, ringOn: false, stats: null,
+  hiIdx: [], hiSaved: null,
+  live: {},            // name → { recs, epoch, names, cat, pts, geom, color }
+  pair: null, pairLine: null, pairA: null, pairB: null, scanning: false, calls: null,
+  train: null,
+};
+const CT_URL = g => `https://celestrak.org/NORAD/elements/gp.php?GROUP=${g}&FORMAT=tle`;
+
+function owInit() {
+  /* the ring: a soft band and a bright core, in Earth's equatorial plane */
+  const X = eqToScene(1, 0, 0), Y = eqToScene(0, 1, 0);
+  const seg = 360, R = GEO_KM / 1000, w = 1.6;
+  const pos = new Float32Array((seg + 1) * 3 * 3), col = new Float32Array((seg + 1) * 3 * 4);
+  const idx = [];
+  const c = new THREE.Color(0xffb37a);
+  for (let i = 0; i <= seg; i++) {
+    const a = i / seg * Math.PI * 2, ca = Math.cos(a), sa = Math.sin(a);
+    for (let r = 0; r < 3; r++) {
+      const rr = R + (r - 1) * w;
+      const o = (i * 3 + r);
+      pos[o * 3] = (X.x * ca + Y.x * sa) * rr;
+      pos[o * 3 + 1] = (X.y * ca + Y.y * sa) * rr;
+      pos[o * 3 + 2] = (X.z * ca + Y.z * sa) * rr;
+      col[o * 4] = c.r; col[o * 4 + 1] = c.g; col[o * 4 + 2] = c.b; col[o * 4 + 3] = r === 1 ? 0.42 : 0;
+    }
+    if (i < seg) for (let r = 0; r < 2; r++) {
+      const a0 = i * 3 + r, a1 = a0 + 1, b0 = a0 + 3, b1 = b0 + 1;
+      idx.push(a0, b0, a1, a1, b0, b1);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('color', new THREE.BufferAttribute(col, 4));
+  g.setIndex(idx);
+  const band = new THREE.Mesh(g, new THREE.MeshBasicMaterial({
+    vertexColors: true, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    blending: THREE.AdditiveBlending,
+  }));
+  band.frustumCulled = false; band.renderOrder = 2;
+  const lp = new Float32Array((seg + 1) * 3);
+  for (let i = 0; i <= seg; i++) {
+    const a = i / seg * Math.PI * 2;
+    lp[i * 3] = (X.x * Math.cos(a) + Y.x * Math.sin(a)) * R;
+    lp[i * 3 + 1] = (X.y * Math.cos(a) + Y.y * Math.sin(a)) * R;
+    lp[i * 3 + 2] = (X.z * Math.cos(a) + Y.z * Math.sin(a)) * R;
+  }
+  const lg = new THREE.BufferGeometry();
+  lg.setAttribute('position', new THREE.BufferAttribute(lp, 3));
+  const core = new THREE.Line(lg, new THREE.LineBasicMaterial({
+    color: 0xffd0a0, transparent: true, opacity: 0.75, depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  core.frustumCulled = false; core.renderOrder = 2;
+  OW.ring = new THREE.Group();
+  OW.ring.add(band, core);
+  OW.ring.visible = false;
+  MIS.group.add(OW.ring);
+
+  /* a close pair: two markers and the line between them */
+  OW.pairA = misSprite(0x66e0ff, 26); OW.pairB = misSprite(0xff8a5c, 26);
+  const pg = new THREE.BufferGeometry();
+  pg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+  OW.pairLine = new THREE.Line(pg, new THREE.LineBasicMaterial({
+    color: 0xffffff, transparent: true, opacity: 0.6, depthTest: false, depthWrite: false,
+  }));
+  OW.pairLine.frustumCulled = false; OW.pairLine.renderOrder = 7;
+  OW.pairA.visible = OW.pairB.visible = OW.pairLine.visible = false;
+  MIS.group.add(OW.pairA, OW.pairB, OW.pairLine);
+
+  /* the newest launch, as a string of lights */
+  OW.trainSprites = [];
+}
+
+function owStats() {
+  if (OW.stats || !SATS.ready) return OW.stats;
+  const s = { leo: 0, meo: 0, geo: 0, other: 0, starlink: 0, total: SATS.count };
+  const gStar = SATS.groups.findIndex(g => g.name === 'Starlink');
+  for (let i = 0; i < SATS.count; i++) {
+    const o = sgp4Orbit(SATS.recs[i]);
+    const alt = (o.apogeeKm + o.perigeeKm) / 2;
+    if (o.apogeeKm < 2000) s.leo++;
+    else if (alt > 35000 && alt < 36600) s.geo++;
+    else if (alt < 35000 && o.apogeeKm < 40000) s.meo++;
+    else s.other++;
+    if (SATS.grp[i] === gStar) s.starlink++;
+  }
+  return (OW.stats = s);
+}
+
+function owElementsNote() {
+  if (SATS.refreshed) return 'Orbital elements: live from CelesTrak, refreshed when you opened the atlas.';
+  const days = Math.round((Date.now() - Date.parse(SATS.snapshot)) / 864e5);
+  return `Orbital elements: the built-in CelesTrak snapshot of ${SATS.snapshot}` +
+    (days > 3 ? ` (${days} days old — positions are illustrative until the live refresh lands).` : '.');
+}
+
+function owSetRing(on) {
+  OW.ringOn = on;
+  OW.ring.visible = on;
+}
+
+function owFlyEarth(dist, pitch) {
+  if (W.mode === 'sky') exitSky();
+  if (W.mode === 'surface') exitSurface();
+  if (ART.on) artStop(true);
+  const e = W.byId.get('earth');
+  W.transition = { from: W.focusPos.clone(), to: e, t: 0, dur: 1.6 };
+  W.targetDist = dist;
+  if (pitch != null) W.tPitch = pitch;
+  hideInfo();
+}
+
+/* ---- highlighting catalogue satellites in the main cloud */
+function owHighlight(list, hex, size) {
+  owClearHighlight();
+  if (!SATS.geom) return;
+  const ca = SATS.geom.attributes.aCol, sa = SATS.geom.attributes.aSize;
+  OW.hiSaved = list.map(i => [i, ca.array[i * 3], ca.array[i * 3 + 1], ca.array[i * 3 + 2], sa.array[i]]);
+  const c = new THREE.Color(hex);
+  for (const i of list) {
+    ca.array[i * 3] = c.r * 1.6; ca.array[i * 3 + 1] = c.g * 1.6; ca.array[i * 3 + 2] = c.b * 1.6;
+    sa.array[i] = size || 2.6;
+  }
+  ca.needsUpdate = sa.needsUpdate = true;
+  OW.hiIdx = list;
+}
+function owClearHighlight() {
+  if (!OW.hiSaved || !SATS.geom) return;
+  const ca = SATS.geom.attributes.aCol, sa = SATS.geom.attributes.aSize;
+  for (const [i, r, g, b, s] of OW.hiSaved) {
+    ca.array[i * 3] = r; ca.array[i * 3 + 1] = g; ca.array[i * 3 + 2] = b; sa.array[i] = s;
+  }
+  ca.needsUpdate = sa.needsUpdate = true;
+  OW.hiSaved = null; OW.hiIdx = [];
+}
+
+/* ---- live element sets, fetched on demand */
+function owParseTLE(txt) {
+  const lines = txt.split(/\r?\n/);
+  const out = [];
+  for (let i = 0; i + 2 < lines.length + 1; i++) {
+    const l1 = lines[i + 1], l2 = lines[i + 2];
+    if (!l1 || !l2 || !l1.startsWith('1 ') || !l2.startsWith('2 ')) continue;
+    try {
+      const e = tleElements(l1, l2, (lines[i] || '').trim());
+      out.push({ rec: sgp4Init(e), epoch: e.epochMs, name: (lines[i] || '').trim(), cat: e.cat,
+        intl: l1.substring(9, 17).trim() });
+    } catch (err) {}
+    i += 2;
+  }
+  return out;
+}
+
+async function owFetchGroup(g) {
+  try {
+    const r = await fetch(CT_URL(g), { mode: 'cors', cache: 'no-cache' });
+    if (!r.ok) return null;
+    const list = owParseTLE(await r.text());
+    return list.length ? list : null;
+  } catch (e) { return null; }
+}
+
+function owMakeCloud(key, list, hex, size) {
+  const n = list.length;
+  const geom = new THREE.BufferGeometry();
+  const pos = new Float32Array(n * 3), col = new Float32Array(n * 3), sz = new Float32Array(n);
+  const c = new THREE.Color(hex);
+  for (let i = 0; i < n; i++) { col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; sz[i] = size || 1; }
+  geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geom.setAttribute('aCol', new THREE.BufferAttribute(col, 3));
+  geom.setAttribute('aSize', new THREE.BufferAttribute(sz, 1));
+  geom.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e6);
+  const mat = new THREE.ShaderMaterial({
+    vertexShader: SAT_VS, fragmentShader: SAT_FS,
+    uniforms: { uScale: { value: 110 }, uMin: { value: 1.6 }, uMax: { value: 5.5 }, uFade: { value: 1.0 } },
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+  });
+  const pts = new THREE.Points(geom, mat);
+  pts.frustumCulled = false; pts.renderOrder = 4;
+  MIS.group.add(pts);
+  const L = { list, pts, geom, cursor: 0, key };
+  OW.live[key] = L;
+  owStepCloud(L, W.time, true);
+  return L;
+}
+
+const _owr = [0, 0, 0], _owv = [0, 0, 0], _owS = new THREE.Vector3();
+function owStepCloud(L, ms, all) {
+  const pos = L.geom.attributes.position.array;
+  const n = L.list.length;
+  const count = all ? n : Math.min(n, 1500);
+  for (let k = 0; k < count; k++) {
+    const i = (L.cursor + k) % n;
+    const s = L.list[i];
+    if (!sgp4(s.rec, (ms - s.epoch) / 60000, _owr, null)) { pos[i * 3] = pos[i * 3 + 1] = pos[i * 3 + 2] = 0; continue; }
+    misEq(_owr[0], _owr[1], _owr[2], _owS);
+    pos[i * 3] = _owS.x; pos[i * 3 + 1] = _owS.y; pos[i * 3 + 2] = _owS.z;
+  }
+  L.cursor = (L.cursor + count) % n;
+  L.geom.attributes.position.needsUpdate = true;
+}
+
+function owUpdate(dt) {
+  /* let the scene being shown stand out against the sixteen thousand others */
+  let dim = !!OW.train || !!OW.pair;
+  for (const k in OW.live) if (OW.live[k].pts.visible && k !== 'train') dim = true;
+  if (dim && SATS.mat) SATS.mat.uniforms.uFade.value *= 0.3;
+  for (const k in OW.live) {
+    const L = OW.live[k];
+    if (!L.pts.visible) continue;
+    owStepCloud(L, W.time, false);
+  }
+  if (OW.pair) owPairUpdate();
+  if (OW.train) owTrainUpdate();
+}
+
+/* ---- the geostationary ring */
+function owShowRing() {
+  owSetRing(true);
+  const g = SATS.groups.findIndex(x => x.name === 'Geostationary');
+  if (g >= 0) { SATS.groupOn[g] = true; applySatGroups(); }
+  owFlyEarth(2.1e8, 0.32);
+  toast('The geostationary belt: 35,786 km up, where an orbit takes exactly one day', 5200);
+}
+
+/* ---- the newest Starlink launch */
+async function owShowTrain(statusEl) {
+  owClearScene();
+  if (statusEl) statusEl.textContent = 'asking CelesTrak for the last 30 days of launches…';
+  let members = null, source = 'live', when = '';
+  const recent = await owFetchGroup('last-30-days');
+  if (recent) {
+    const byLaunch = new Map();
+    for (const s of recent) {
+      if (!/^STARLINK/i.test(s.name)) continue;
+      const k = s.intl.slice(0, 5);
+      if (!byLaunch.has(k)) byLaunch.set(k, []);
+      byLaunch.get(k).push(s);
+    }
+    let best = null;
+    for (const [k, arr] of byLaunch) if (arr.length >= 8 && (!best || k > best[0])) best = [k, arr];
+    if (best) {
+      members = best[1];
+      const L = owMakeCloud('train', members, 0xffe08a, 2.2);
+      OW.train = { live: L, members, i0: 0 };
+      when = `international designator 20${best[0].slice(0, 2)}-${best[0].slice(2)}`;
+    }
+  }
+  if (!members) {
+    /* offline: the newest batch in the built-in catalogue */
+    source = 'catalogue';
+    const g = SATS.groups.findIndex(x => x.name === 'Starlink');
+    const idx = [];
+    for (let i = 0; i < SATS.count; i++) if (SATS.grp[i] === g) idx.push(i);
+    idx.sort((a, b) => SATS.cat[b] - SATS.cat[a]);
+    let cur = [idx[0]], pick = null;
+    for (let k = 1; k < idx.length; k++) {
+      if (SATS.cat[cur[cur.length - 1]] - SATS.cat[idx[k]] <= 3) cur.push(idx[k]);
+      else { if (cur.length >= 8) { pick = cur; break; } cur = [idx[k]]; }
+    }
+    const batch = (pick || cur).slice(0, 40);
+    owHighlight(batch, 0xffe08a, 3.0);
+    OW.train = { idx: batch };
+    when = `catalogue numbers ${SATS.cat[batch[batch.length - 1]]}–${SATS.cat[batch[0]]}`;
+    members = batch;
+  }
+  /* how strung out are they? */
+  const P = owTrainPositions();
+  let maxAng = 0;
+  for (const p of P) maxAng = Math.max(maxAng, p.angleTo(P[0]));
+  const spreadKm = maxAng * (P[0].length() * 1000);
+  const n = members.length;
+  const msg = spreadKm < 4000
+    ? `${n} Starlink satellites from one launch, still flying in a line ${misFmtInt(spreadKm)} km long`
+    : `${n} Starlink satellites from one launch, now spread ${misFmtInt(spreadKm)} km around their orbit`;
+  if (statusEl) statusEl.textContent = msg + ` · ${when}` + (source === 'live' ? ' · live elements' : ' · built-in catalogue (offline)');
+  /* look along the line from just behind the lead satellite */
+  const lead = owTrainLeadObj();
+  if (W.mode === 'sky') exitSky();
+  W.transition = { from: W.focusPos.clone(), to: lead, t: 0, dur: 1.8 };
+  W.targetDist = THREE.MathUtils.clamp(spreadKm * 3.2, 700, 14000) * 1000;
+  {
+    const mid = P[Math.floor(P.length / 2)], rad = mid.clone().normalize();
+    const T = OW.train; let v = null;
+    if (T.idx) { const i = T.idx[Math.floor(T.idx.length / 2)]; v = satAt(i, W.time + 10000, new THREE.Vector3()).divideScalar(1e6).sub(mid); }
+    else { const s = T.members[Math.floor(T.members.length / 2)]; v = owPosOf(s, W.time + 10000, new THREE.Vector3()).sub(mid); }
+    v.normalize();
+    misAim(rad.multiplyScalar(0.62).addScaledVector(v, -0.78).normalize());
+  }
+  hideInfo();
+  misRate(1); W.playing = true; syncTime();
+  toast(msg, 5200);
+}
+
+function owTrainPositions() {
+  const out = [];
+  const T = OW.train;
+  if (!T) return [OW.lastTrain || new THREE.Vector3(7, 0, 0)];
+  if (T.idx) for (const i of T.idx) out.push(satAt(i, W.time, new THREE.Vector3()).divideScalar(1e6));
+  else for (const s of T.members) {
+    if (sgp4(s.rec, (W.time - s.epoch) / 60000, _owr, null)) out.push(misEq(_owr[0], _owr[1], _owr[2], new THREE.Vector3()));
+  }
+  return out.length ? out : [new THREE.Vector3(7, 0, 0)];
+}
+
+function owTrainLeadObj() {
+  const earth = W.byId.get('earth');
+  const o = {
+    id: 'ow:train', name: 'Newest Starlink launch', kind: 'Starlink · one launch', realm: 'SOLAR',
+    radius: 5e4, transient: true, suppressLabel: true,
+    getPos: v => {
+      earth.getPos(v);
+      const P = owTrainPositions();
+      const m = P[Math.floor(P.length / 2)];
+      if (OW.train) OW.lastTrain = m.clone();
+      return v.addScaledVector(m, UNIT.SOLAR);
+    },
+  };
+  return o;
+}
+
+function owTrainUpdate() {
+  const T = OW.train;
+  if (T.live) T.live.pts.visible = true;
+  const P = owTrainPositions();
+  const S = OW.trainSprites;
+  while (S.length < Math.min(P.length, 60)) { const sp = misSprite(0xffd27a, 11); MIS.group.add(sp); S.push(sp); }
+  for (let k = 0; k < S.length; k++) {
+    const on = k < P.length;
+    S[k].visible = on;
+    if (on) { S[k].position.copy(P[k]); misSizeSprite(S[k]); }
+  }
+}
+
+/* ---- debris */
+const OW_DEBRIS = [
+  ['fengyun-1c-debris', 'Fengyun-1C', '2007 anti-satellite test', 0xff6a5c],
+  ['cosmos-2251-debris', 'Cosmos 2251', '2009 collision with Iridium 33', 0xffa25c],
+  ['iridium-33-debris', 'Iridium 33', '2009 collision with Cosmos 2251', 0xffd05c],
+];
+async function owShowDebris(statusEl) {
+  owClearScene(true);
+  if (statusEl) statusEl.textContent = 'fetching the debris catalogues from CelesTrak…';
+  let total = 0;
+  const got = [];
+  for (const [g, nm, why, hex] of OW_DEBRIS) {
+    let L = OW.live[g];
+    if (!L) {
+      const list = await owFetchGroup(g);
+      if (list) L = owMakeCloud(g, list, hex, 1.0);
+    }
+    if (L) { L.pts.visible = true; total += L.list.length; got.push(`${nm}: ${L.list.length.toLocaleString()} pieces (${why})`); }
+  }
+  if (!total) {
+    const msg = 'The debris catalogues need a live connection to CelesTrak, which is not reachable from here right now.';
+    if (statusEl) statusEl.textContent = msg;
+    toast(msg, 5200);
+    return;
+  }
+  if (statusEl) statusEl.textContent = got.join(' · ');
+  owFlyEarth(4.2e7, 0.15);
+  misRate(60); W.playing = true; syncTime();
+  toast(`${total.toLocaleString()} tracked fragments from three events, still circling`, 5200);
+}
+
+/* ---- close calls */
+async function owScan(statusEl, listEl) {
+  if (OW.scanning || !SATS.ready) return;
+  OW.scanning = true;
+  const minutes = 45, stepS = 20;
+  const pool = [];
+  for (let i = 0; i < SATS.count; i++) {
+    const r = SATS.recs[i];
+    if (2 * Math.PI / r.no < 128) pool.push({ rec: r, epoch: SATS.epochMin[i], name: prettySatName(SATS.names[i]), sat: i });
+  }
+  for (const k in OW.live) if (OW.live[k].key !== 'train') for (const s of OW.live[k].list) {
+    if (2 * Math.PI / s.rec.no < 128) pool.push({ rec: s.rec, epoch: s.epoch, name: s.name, live: s });
+  }
+  const N = pool.length;
+  const P = new Float64Array(N * 3), V = new Float64Array(N * 3), ok = new Uint8Array(N);
+  const t0 = W.time;
+  const CELL = 330, steps = minutes * 60 / stepS;
+  const best = new Map();
+  const key = (x, y, z) => (x + 512) + 1024 * ((y + 512) + 1024 * (z + 512));
+  for (let s = 0; s <= steps; s++) {
+    const ms = t0 + s * stepS * 1000;
+    for (let i = 0; i < N; i++) {
+      const p = pool[i];
+      ok[i] = sgp4(p.rec, (ms - p.epoch) / 60000, _owr, _owv) ? 1 : 0;
+      P[i * 3] = _owr[0]; P[i * 3 + 1] = _owr[1]; P[i * 3 + 2] = _owr[2];
+      V[i * 3] = _owv[0]; V[i * 3 + 1] = _owv[1]; V[i * 3 + 2] = _owv[2];
+    }
+    const grid = new Map();
+    for (let i = 0; i < N; i++) {
+      if (!ok[i]) continue;
+      const k = key(Math.floor(P[i * 3] / CELL), Math.floor(P[i * 3 + 1] / CELL), Math.floor(P[i * 3 + 2] / CELL));
+      const c = grid.get(k);
+      if (c) c.push(i); else grid.set(k, [i]);
+    }
+    for (let i = 0; i < N; i++) {
+      if (!ok[i]) continue;
+      const cx = Math.floor(P[i * 3] / CELL), cy = Math.floor(P[i * 3 + 1] / CELL), cz = Math.floor(P[i * 3 + 2] / CELL);
+      for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++) {
+        const c = grid.get(key(cx + dx, cy + dy, cz + dz));
+        if (!c) continue;
+        for (const j of c) {
+          if (j <= i) continue;
+          const rx = P[j * 3] - P[i * 3], ry = P[j * 3 + 1] - P[i * 3 + 1], rz = P[j * 3 + 2] - P[i * 3 + 2];
+          if (rx * rx + ry * ry + rz * rz > CELL * CELL) continue;
+          const vx = V[j * 3] - V[i * 3], vy = V[j * 3 + 1] - V[i * 3 + 1], vz = V[j * 3 + 2] - V[i * 3 + 2];
+          const v2 = vx * vx + vy * vy + vz * vz;
+          if (v2 < 1.0) continue;                      // co-orbiting: same launch, same plane
+          let tau = -(rx * vx + ry * vy + rz * vz) / v2;
+          tau = Math.max(-stepS / 2, Math.min(stepS / 2, tau));
+          const mx = rx + vx * tau, my = ry + vy * tau, mz = rz + vz * tau;
+          const d = Math.sqrt(mx * mx + my * my + mz * mz);
+          const pk = i * 1e6 + j;
+          const b = best.get(pk);
+          if (!b || d < b.d) best.set(pk, { i, j, d, ms: ms + tau * 1000, v: Math.sqrt(v2) });
+        }
+      }
+    }
+    if (s % 6 === 0) {
+      if (statusEl) statusEl.textContent = `screening ${N.toLocaleString()} objects in low orbit … ${Math.round(s / steps * 100)}%`;
+      await new Promise(r => setTimeout(r, 0));
+    }
+  }
+  const res = Array.from(best.values()).sort((a, b) => a.d - b.d).slice(0, 10)
+    .map(r => ({ a: pool[r.i], b: pool[r.j], d: r.d, ms: r.ms, v: r.v }));
+  OW.calls = res;
+  OW.scanning = false;
+  if (statusEl) statusEl.textContent = `${N.toLocaleString()} objects screened over the next ${minutes} minutes — the nearest crossings in the model. ` +
+    (SATS.refreshed ? 'Elements are live.' : 'Elements are from the built-in snapshot, so treat these as illustrative.');
+  if (listEl) {
+    listEl.innerHTML = res.map((r, k) => `<div class="ev" data-call="${k}">
+      <div class="t">${esc(r.a.name)} × ${esc(r.b.name)}<em>${misKm(r.d)}</em></div>
+      <div class="w">${esc(misUTC(r.ms, true))} · closing at ${r.v.toFixed(1)} km/s</div></div>`).join('') ||
+      '<div class="evempty">No crossing pairs came within range.</div>';
+    listEl.querySelectorAll('[data-call]').forEach(el => el.onclick = () => owWatchPair(OW.calls[+el.dataset.call]));
+  }
+}
+
+function owPosOf(p, ms, out) {
+  if (sgp4(p.rec, (ms - p.epoch) / 60000, _owr, null)) return misEq(_owr[0], _owr[1], _owr[2], out);
+  return out.set(0, 0, 0);
+}
+
+function owWatchPair(r) {
+  if (!r) return;
+  owClearScene(true);
+  OW.pair = r;
+  const earth = W.byId.get('earth');
+  const mid = {
+    id: 'ow:pair', name: `${r.a.name} × ${r.b.name}`, kind: 'Close approach', realm: 'SOLAR',
+    radius: 2e4, transient: true, suppressLabel: true,
+    getPos: v => {
+      earth.getPos(v);
+      owPosOf(r.a, W.time, _misA); owPosOf(r.b, W.time, _misB);
+      return v.addScaledVector(_misA.add(_misB).multiplyScalar(0.5), UNIT.SOLAR);
+    },
+  };
+  if (W.mode === 'sky') exitSky();
+  if (ART.on) artStop(true);
+  W.time = r.ms - 24000;
+  misRate(1); W.playing = true; syncTime();
+  W.transition = { from: W.focusPos.clone(), to: mid, t: 0, dur: 1.4 };
+  W.targetDist = 6.5e5;
+  /* look down on the crossing, with the Earth behind it and the motion across the frame */
+  owPosOf(r.a, r.ms, _misA); owPosOf(r.b, r.ms, _misB);
+  const rad = _misA.clone().add(_misB).normalize();
+  owPosOf(r.a, r.ms + 1000, _owS); const va = _owS.clone().sub(_misA);
+  owPosOf(r.b, r.ms + 1000, _owS); const dv = _owS.clone().sub(_misB).sub(va).normalize();
+  const d = rad.clone().addScaledVector(dv, -rad.dot(dv)).normalize().addScaledVector(dv, 0.25).normalize();
+  misAim(d);
+  hideInfo();
+  $('#events').classList.remove('show');
+  $('#owbar').classList.add('show');
+  $('#owName').textContent = mid.name;
+  OW.pairA.visible = OW.pairB.visible = OW.pairLine.visible = true;
+}
+
+function owPairUpdate() {
+  const r = OW.pair;
+  owPosOf(r.a, W.time, OW.pairA.position);
+  owPosOf(r.b, W.time, OW.pairB.position);
+  misSizeSprite(OW.pairA); misSizeSprite(OW.pairB);
+  const a = OW.pairLine.geometry.attributes.position.array;
+  a[0] = OW.pairA.position.x; a[1] = OW.pairA.position.y; a[2] = OW.pairA.position.z;
+  a[3] = OW.pairB.position.x; a[4] = OW.pairB.position.y; a[5] = OW.pairB.position.z;
+  OW.pairLine.geometry.attributes.position.needsUpdate = true;
+  const d = OW.pairA.position.distanceTo(OW.pairB.position) * 1000;
+  const dtS = (r.ms - W.time) / 1000;
+  $('#owSep').textContent = d < 10 ? d.toFixed(2) + ' km' : misFmtInt(d) + ' km';
+  $('#owTca').textContent = dtS > 0 ? `closest in ${dtS.toFixed(0)} s` : `closest ${Math.abs(dtS).toFixed(0)} s ago · ${misKm(r.d)} in the model`;
+  $('#owVel').textContent = r.v.toFixed(1) + ' km/s';
+  OW.caption = `${d < 10 ? d.toFixed(2) : misFmtInt(d)} km apart`;
+}
+
+function owClearScene(keepDebris) {
+  owClearHighlight();
+  if (OW.pair) { OW.pair = null; $('#owbar').classList.remove('show'); }
+  OW.pairA.visible = OW.pairB.visible = OW.pairLine.visible = false;
+  if (OW.train && OW.train.live) OW.train.live.pts.visible = false;
+  OW.train = null;
+  for (const sp of OW.trainSprites) sp.visible = false;
+  if (!keepDebris) for (const k in OW.live) OW.live[k].pts.visible = false;
+}
+
+function owPanelHtml() {
+  const s = owStats();
+  if (!s) return '<div class="evempty">The satellite catalogue is still loading.</div>';
+  const pct = x => (x / s.total * 100).toFixed(0) + '%';
+  let h = `<div class="qhead">${s.total.toLocaleString()} working satellites are in orbit in this
+    catalogue. ${s.starlink.toLocaleString()} of them — ${pct(s.starlink)} — are Starlink.</div>`;
+  h += `<div class="owgrid">
+    <div><b>${s.leo.toLocaleString()}</b><span>low orbit<br>below 2,000 km</span></div>
+    <div><b>${s.meo.toLocaleString()}</b><span>medium orbit<br>navigation</span></div>
+    <div><b>${s.geo.toLocaleString()}</b><span>geostationary<br>35,786 km</span></div>
+    <div><b>${s.other.toLocaleString()}</b><span>high &amp;<br>elliptical</span></div></div>`;
+  h += `<div class="ev" data-ow="ring"><div class="t">The geostationary ring<em>${OW.ringOn ? 'on' : 'off'}</em></div>
+    <div class="d">At 35,786 km an orbit takes exactly one day, so a satellite there hangs over one
+    spot on the equator. Every weather image and satellite TV dish depends on this one thin line.</div></div>`;
+  h += `<div class="ev" data-ow="train"><div class="t">The newest Starlink train<em>live</em></div>
+    <div class="d">Fresh off the rocket, a Starlink batch flies in a line like a string of pearls
+    before spreading out to its working orbit. Finds the most recent launch and flies alongside.</div></div>`;
+  h += `<div class="ev" data-ow="debris"><div class="t">Debris clouds<em>live</em></div>
+    <div class="d">The shrapnel of China’s 2007 anti-satellite test and the 2009 collision of
+    Iridium 33 with Cosmos 2251 — thousands of fragments, still circling.</div></div>`;
+  h += `<div class="ev" data-ow="scan"><div class="t">Close calls in the next 45 minutes<em>scan</em></div>
+    <div class="d">Screens every object in low orbit against every other, 20 seconds at a time, and
+    lists the nearest crossings. Tap one to watch the two pass.</div></div>`;
+  h += `<div class="owstat" id="owStatus"></div><div id="owCalls"></div>`;
+  h += `<div class="ev" data-ow="clear"><div class="t">Clear Orbit Watch</div></div>`;
+  h += `<div class="evempty">${esc(owElementsNote())} Close-call figures come from public
+    elements without uncertainty, so they are approximate — real conjunction screening adds
+    covariance data the public does not see.</div>`;
+  return h;
+}
+
+function wireOwPanel(b) {
+  const st = b.querySelector('#owStatus'), list = b.querySelector('#owCalls');
+  b.querySelectorAll('[data-ow]').forEach(el => el.onclick = () => {
+    const k = el.dataset.ow;
+    if (k === 'ring') {
+      if (OW.ringOn) { owSetRing(false); el.querySelector('em').textContent = 'off'; }
+      else { owShowRing(); el.querySelector('em').textContent = 'on'; if (IS_PHONE) $('#events').classList.remove('show'); }
+    } else if (k === 'train') { owShowTrain(st); if (IS_PHONE) $('#events').classList.remove('show'); }
+    else if (k === 'debris') { owShowDebris(st); if (IS_PHONE) $('#events').classList.remove('show'); }
+    else if (k === 'scan') owScan(st, list);
+    else if (k === 'clear') { owClearScene(); owSetRing(false); renderEvents(); }
+  });
+  if (OW.calls && list) {
+    list.innerHTML = OW.calls.map((r, k) => `<div class="ev" data-call="${k}">
+      <div class="t">${esc(r.a.name)} × ${esc(r.b.name)}<em>${misKm(r.d)}</em></div>
+      <div class="w">${esc(misUTC(r.ms, true))} · closing at ${r.v.toFixed(1)} km/s</div></div>`).join('');
+    list.querySelectorAll('[data-call]').forEach(el => el.onclick = () => owWatchPair(OW.calls[+el.dataset.call]));
+  }
+}
+
+function wireOwBar() {
+  $('#owStop').onclick = () => { owClearScene(true); misRate(1); };
+  $('#owSlow').onclick = () => {
+    misRate(W.rate === 1 ? 0.1 : 1);
+    $('#owSlow').textContent = W.rate === 1 ? 'slow motion' : 'real time';
+  };
+  $('#owAgain').onclick = () => { if (OW.pair) { W.time = OW.pair.ms - 24000; W.playing = true; syncTime(); } };
+}
+
+
+/* =============================================================================
+   VERTICAL VIDEO
+
+   The renderer is narrowed to a 9:16 frame for the length of the recording and
+   its pixel ratio raised so the frame is close to 1080 × 1920; each frame is
+   copied to a 2D canvas, captions and the address are painted over it, and
+   MediaRecorder turns the canvas into a file. Safari and current Chrome write
+   MP4 directly; anywhere else falls back to WebM.
+   ========================================================================== */
+const REC = { on: false, ending: 0, cv: null, ctx: null, mr: null, chunks: [], t0: 0, w: 1080, h: 1920,
+  title: '', sub: '', kind: '', mime: '', dest: null, savedDpr: 0, url: null, maxS: 330 };
+
+function recSupported() {
+  return !!(window.MediaRecorder && HTMLCanvasElement.prototype.captureStream);
+}
+function recPickMime() {
+  /* H.264 in MP4 is what phones and every social app accept. A bare
+     'video/mp4' in Chromium can mean VP9 in MP4, which iPhones will not play,
+     so only Safari is trusted with it; elsewhere WebM is the honest fallback. */
+  const safari = /Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|Edg/.test(navigator.userAgent);
+  const c = ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.4D401F', 'video/mp4;codecs=avc1.42E01E',
+    'video/mp4;codecs=avc1', ...(safari ? ['video/mp4'] : []), 'video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm'];
+  for (const m of c) { try { if (MediaRecorder.isTypeSupported(m)) return m; } catch (e) {} }
+  return '';
+}
+
+function recFrameOn(on) {
+  W.recFrame = on;
+  document.body.classList.toggle('recframe', on);
+  const h = innerHeight;
+  if (on) {
+    REC.savedDpr = W.renderer.getPixelRatio();
+    const portrait = innerWidth / innerHeight < 0.6;
+    const want = portrait ? Math.min(2, Math.max(REC.savedDpr, 1280 / h)) : Math.min(2.4, Math.max(1, 1920 / h));
+    W.renderer.setPixelRatio(want);
+    if (W.composer) W.composer.setPixelRatio(want);
+  } else if (REC.savedDpr) {
+    W.renderer.setPixelRatio(REC.savedDpr);
+    if (W.composer) W.composer.setPixelRatio(REC.savedDpr);
+  }
+  resize();
+}
+
+function recStart(opts = {}) {
+  if (REC.on) return false;
+  if (!recSupported()) { toast('This browser cannot record video — try Safari or Chrome', 4200); return false; }
+  recFrameOn(true);
+  const src = W.renderer.domElement;
+  const big = src.height >= 1500;
+  REC.w = big ? 1080 : 720; REC.h = big ? 1920 : 1280;
+  REC.cv = document.createElement('canvas');
+  REC.cv.width = REC.w; REC.cv.height = REC.h;
+  REC.ctx = REC.cv.getContext('2d');
+  REC.ctx.fillStyle = '#000'; REC.ctx.fillRect(0, 0, REC.w, REC.h);
+  const stream = REC.cv.captureStream(30);
+  REC.dest = null;
+  if (AUDIO.ctx && AUDIO.master) {
+    try {
+      REC.dest = AUDIO.ctx.createMediaStreamDestination();
+      AUDIO.master.connect(REC.dest);
+      for (const t of REC.dest.stream.getAudioTracks()) stream.addTrack(t);
+    } catch (e) { REC.dest = null; }
+  }
+  REC.mime = recPickMime();
+  try {
+    REC.mr = new MediaRecorder(stream, Object.assign({ videoBitsPerSecond: big ? 14e6 : 8e6 },
+      REC.mime ? { mimeType: REC.mime } : {}));
+  } catch (e) {
+    try { REC.mr = new MediaRecorder(stream); } catch (e2) { recFrameOn(false); toast('Recording could not start here'); return false; }
+  }
+  REC.chunks = [];
+  REC.mr.ondataavailable = e => { if (e.data && e.data.size) REC.chunks.push(e.data); };
+  REC.mr.onstop = recFinish;
+  REC.mr.start(1000);
+  REC.on = true; REC.ending = 0; REC.t0 = performance.now();
+  REC.title = opts.title || (W.focus ? W.focus.name : 'Cosmos Atlas');
+  REC.sub = opts.sub || '';
+  REC.kind = opts.kind || '';
+  REC.font = getComputedStyle(document.documentElement).getPropertyValue('--sans').trim() || 'system-ui, sans-serif';
+  REC.mono = getComputedStyle(document.documentElement).getPropertyValue('--mono').trim() || 'ui-monospace, monospace';
+  $('#recpill').classList.add('show');
+  $('#tRec') && $('#tRec').classList.add('on');
+  return true;
+}
+
+function recStop() {
+  if (!REC.on || REC.ending) return;
+  REC.ending = performance.now();
+}
+
+function recText(ctx, s, x, y, font, color, align, shadow) {
+  ctx.font = font; ctx.fillStyle = color; ctx.textAlign = align || 'left';
+  ctx.shadowColor = 'rgba(0,0,0,.75)'; ctx.shadowBlur = shadow == null ? 18 : shadow;
+  ctx.fillText(s, x, y);
+  ctx.shadowBlur = 0;
+}
+
+/** Called straight after each render. */
+function recFrame() {
+  if (!REC.on) return;
+  const now = performance.now();
+  const ctx = REC.ctx, Wd = REC.w, Ht = REC.h, s = Ht / 1920;
+  const src = W.renderer.domElement;
+  const sw = src.width, sh = src.height, ar = Wd / Ht;
+  let cw = sh * ar, ch = sh;
+  if (cw > sw) { cw = sw; ch = sw / ar; }
+  ctx.drawImage(src, (sw - cw) / 2, (sh - ch) / 2, cw, ch, 0, 0, Wd, Ht);
+
+  /* soft top and bottom shades so the type always reads */
+  let g = ctx.createLinearGradient(0, 0, 0, 420 * s);
+  g.addColorStop(0, 'rgba(0,0,0,.55)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, Wd, 420 * s);
+  g = ctx.createLinearGradient(0, Ht - 360 * s, 0, Ht);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.6)');
+  ctx.fillStyle = g; ctx.fillRect(0, Ht - 360 * s, Wd, 360 * s);
+
+  const F = REC.font, M = REC.mono;
+  recText(ctx, 'C O S M O S   A T L A S', Wd / 2, 118 * s, `500 ${26 * s}px ${M}`, 'rgba(160,200,255,.85)', 'center', 0);
+
+  if (REC.kind === 'artemis' && ART.cur.ms) {
+    const st = ART.cur;
+    const mi = (st.rE - R_EARTH_KM) / 1.609344;
+    recText(ctx, misFmtInt(mi), Wd / 2, 300 * s, `200 ${132 * s}px ${F}`, '#f4f7ff', 'center');
+    recText(ctx, 'MILES FROM EARTH', Wd / 2, 352 * s, `500 ${28 * s}px ${M}`, 'rgba(200,215,240,.85)', 'center');
+    const over = st.rE - R_EARTH_KM >= ART_REC_KM;
+    recText(ctx, over ? '★ FARTHEST HUMANS HAVE EVER BEEN' : `APOLLO 13 RECORD · ${misFmtInt(ART_REC_MI)} MI`,
+      Wd / 2, 410 * s, `600 ${26 * s}px ${M}`, over ? '#ffd27a' : 'rgba(170,185,215,.75)', 'center');
+    recText(ctx, `ARTEMIS II · ${artMet(st.ms)}`, Wd / 2, Ht - 230 * s, `500 ${30 * s}px ${M}`, 'rgba(230,236,250,.92)', 'center');
+    recText(ctx, misUTC(st.ms).toUpperCase(), Wd / 2, Ht - 186 * s, `400 ${26 * s}px ${M}`, 'rgba(180,195,225,.8)', 'center');
+    const capAge = (now - ART.captionAt) / 1000;
+    if (ART.caption && capAge < 4.5) {
+      ctx.globalAlpha = Math.min(1, capAge * 3, (4.5 - capAge) * 2);
+      recText(ctx, ART.caption, Wd / 2, Ht * 0.7, `300 ${58 * s}px ${F}`, '#ffffff', 'center', 28);
+      ctx.globalAlpha = 1;
+    }
+  } else if (CINE.on) {
+    const el = document.querySelector('#cinettl');
+    const a = el ? +getComputedStyle(el).opacity : 0;
+    if (a > 0.02 && CINE.title) {
+      ctx.globalAlpha = a;
+      recWrap(ctx, CINE.title, Wd / 2, Ht * 0.7, Wd - 160 * s, 64 * s, `300 ${54 * s}px ${F}`, '#f4f7ff');
+      if (CINE.sub) recWrap(ctx, CINE.sub, Wd / 2, Ht * 0.7 + 150 * s, Wd - 200 * s, 40 * s, `300 ${30 * s}px ${F}`, 'rgba(205,215,235,.9)');
+      ctx.globalAlpha = 1;
+    }
+  } else {
+    const name = OW.pair ? OW.caption : (W.focus ? W.focus.name : REC.title);
+    recText(ctx, name || '', Wd / 2, 196 * s, `300 ${54 * s}px ${F}`, '#f4f7ff', 'center');
+    const d = new Date(W.time);
+    recText(ctx, d.toISOString().slice(0, 16).replace('T', '  ') + ' UTC', Wd / 2, 246 * s,
+      `400 ${24 * s}px ${M}`, 'rgba(180,195,225,.8)', 'center');
+  }
+  recText(ctx, 'cosmos.cool', Wd / 2, Ht - 96 * s, `500 ${40 * s}px ${F}`, 'rgba(255,255,255,.92)', 'center');
+
+  const el = (now - REC.t0) / 1000;
+  $('#recT').textContent = `${Math.floor(el / 60)}:${String(Math.floor(el % 60)).padStart(2, '0')}`;
+  if (!REC.ending && el > REC.maxS) recStop();
+
+  if (REC.ending) {
+    const u = Math.min(1, (now - REC.ending) / 1800);
+    ctx.fillStyle = `rgba(3,6,14,${Math.min(0.92, u * 1.6)})`;
+    ctx.fillRect(0, 0, Wd, Ht);
+    ctx.globalAlpha = Math.min(1, u * 2);
+    recText(ctx, 'cosmos.cool', Wd / 2, Ht / 2, `300 ${110 * s}px ${F}`, '#ffffff', 'center', 30);
+    recText(ctx, 'the whole universe, in your browser', Wd / 2, Ht / 2 + 80 * s, `400 ${32 * s}px ${F}`, 'rgba(190,205,235,.9)', 'center');
+    ctx.globalAlpha = 1;
+    if (u >= 1 && REC.mr && REC.mr.state === 'recording') {
+      REC.on = false;
+      REC.mr.stop();
+    }
+  }
+}
+
+function recWrap(ctx, text, x, y, maxW, lh, font, color) {
+  ctx.font = font;
+  const words = String(text).split(/\s+/);
+  let line = '', yy = y;
+  for (const w of words) {
+    const t = line ? line + ' ' + w : w;
+    if (ctx.measureText(t).width > maxW && line) { recText(ctx, line, x, yy, font, color, 'center'); line = w; yy += lh; }
+    else line = t;
+  }
+  if (line) recText(ctx, line, x, yy, font, color, 'center');
+}
+
+function recFinish() {
+  recFrameOn(false);
+  $('#recpill').classList.remove('show');
+  $('#tRec') && $('#tRec').classList.remove('on');
+  if (REC.dest && AUDIO.master) { try { AUDIO.master.disconnect(REC.dest); } catch (e) {} }
+  const type = (REC.mr && REC.mr.mimeType) || REC.mime || 'video/webm';
+  const ext = /mp4/.test(type) ? 'mp4' : 'webm';
+  const blob = new Blob(REC.chunks, { type: type.split(';')[0] });
+  REC.chunks = [];
+  if (!blob.size) { toast('Nothing was recorded'); return; }
+  if (REC.url) URL.revokeObjectURL(REC.url);
+  REC.url = URL.createObjectURL(blob);
+  const slug = (REC.title || 'cosmos').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'cosmos';
+  const name = `cosmos-atlas-${slug}.${ext}`;
+  const file = new File([blob], name, { type: blob.type });
+  const box = $('#recdone');
+  box.querySelector('video').src = REC.url;
+  box.querySelector('.rdmeta').textContent =
+    `${(blob.size / 1048576).toFixed(1)} MB · ${ext.toUpperCase()} · ${REC.w} × ${REC.h}` +
+    (ext === 'webm' ? ' · WebM: most apps accept it; Instagram prefers MP4 (record in Safari or Chrome)' : '');
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  const sh = box.querySelector('[data-rd="share"]');
+  sh.style.display = canShare ? '' : 'none';
+  sh.onclick = async () => {
+    try { await navigator.share({ files: [file], title: 'Cosmos Atlas', text: 'Made at cosmos.cool' }); }
+    catch (e) {}
+  };
+  const dl = box.querySelector('[data-rd="save"]');
+  dl.href = REC.url; dl.download = name;
+  box.querySelector('[data-rd="close"]').onclick = () => {
+    box.classList.remove('show');
+    box.querySelector('video').pause();
+  };
+  box.classList.add('show');
+}
+
+function wireRec() {
+  const b = $('#tRec');
+  if (b) {
+    if (!recSupported()) b.style.display = 'none';
+    b.onclick = () => { if (REC.on) recStop(); else if (recStart({})) toast('Recording a vertical video — tap ■ to finish', 3200); };
+  }
+  $('#recStop').onclick = () => recStop();
+}
+
+function recCinemaShot(keys, name) {
+  startShot(keys, name);
+  if (!CINE.on) return;
+  recStart({ title: name, kind: 'cine' });
+  const watch = () => {
+    if (!REC.on) return;
+    if (!CINE.on) { recStop(); return; }
+    setTimeout(watch, 400);
+  };
+  setTimeout(watch, 400);
+}
+
+
+/* =============================================================================
+   PASS ALERTS
+
+   A calendar file for any pass (with a reminder five minutes before), an
+   in-page alert while the atlas is open, and a message to send a friend.
+   A static site cannot push to a closed phone, so the calendar does that job.
+   ========================================================================== */
+const ALERTS = { list: [], timers: [] };
+
+function passDir(az) { return compassLabel(az); }
+
+function passLook(p) {
+  return `rises in the ${passDir(p.riseAz != null ? p.riseAz : p.peakAz)}, ` +
+    `${p.peakAlt.toFixed(0)}° up in the ${passDir(p.peakAz)}` +
+    (p.visible ? `, magnitude ${p.magnitude.toFixed(1)}` : '');
+}
+function passSummary(p) { return `${p.name} — ${passLook(p)}`; }
+
+function icsDate(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+/* RFC 5545: lines longer than 75 octets are folded with CRLF + space */
+function icsFold(line) {
+  const out = [];
+  let cur = '', n = 0;
+  for (const ch of line) {
+    const b = new TextEncoder().encode(ch).length;
+    if (n + b > (out.length ? 74 : 75)) { out.push(cur); cur = ''; n = 0; }
+    cur += ch; n += b;
+  }
+  out.push(cur);
+  return out.join('\r\n ');
+}
+function icsEsc(s) { return String(s).replace(/\\/g, '\\\\').replace(/[,;]/g, m => '\\' + m).replace(/\n/g, '\\n'); }
+
+function passVEvent(p, place) {
+  const age = SATS.epochMin ? (Date.now() - SATS.epochMin[p.index]) / 864e5 : 0;
+  const desc = `${passSummary(p)}. Look for a steady point of light crossing the sky over about ` +
+    `${Math.max(1, Math.round((p.endMs - p.startMs) / 60000))} minutes from ${place}.` +
+    (age > 5 ? ` Predicted from ${Math.round(age)}-day-old orbital elements: open the atlas on the day to re-check the time.` : '') +
+    `\nWatch it live: https://cosmos.cool/#iss`;
+  return ['BEGIN:VEVENT',
+    `UID:pass-${SATS.cat[p.index]}-${p.startMs}@cosmos.cool`,
+    `DTSTAMP:${icsDate(Date.now())}`,
+    `DTSTART:${icsDate(p.startMs)}`,
+    `DTEND:${icsDate(p.endMs + 60000)}`,
+    `SUMMARY:${icsEsc(`${p.name} overhead — look ${passDir(p.riseAz != null ? p.riseAz : p.peakAz)}`)}`,
+    `LOCATION:${icsEsc(place)}`,
+    `DESCRIPTION:${icsEsc(desc)}`,
+    'URL:https://cosmos.cool/#iss',
+    'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(p.name + ' rises in 5 minutes')}`, 'TRIGGER:-PT5M', 'END:VALARM',
+    'END:VEVENT'].map(icsFold).join('\r\n');
+}
+
+function passIcs(passes, place) {
+  const body = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Cosmos Atlas//cosmos.cool//EN',
+    'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:Space station passes',
+    ...passes.map(p => passVEvent(p, place)), 'END:VCALENDAR'].join('\r\n');
+  const blob = new Blob([body], { type: 'text/calendar;charset=utf-8' });
+  const name = passes.length === 1 ? `${passes[0].name.replace(/\W+/g, '-').toLowerCase()}-pass.ics` : 'space-station-passes.ics';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+  toast(passes.length === 1 ? 'Calendar event ready — with a reminder 5 minutes before'
+    : `${passes.length} passes added to a calendar file, each with a reminder`, 4200);
+}
+
+async function passAlert(p, place) {
+  if ('Notification' in window && Notification.permission === 'default') {
+    try { await Notification.requestPermission(); } catch (e) {}
+  }
+  const a = { ms: p.startMs, peakMs: p.peakMs, name: p.name, sat: p.index, text: passLook(p), place };
+  ALERTS.list = ALERTS.list.filter(x => x.ms > Date.now() && x.ms !== a.ms);
+  ALERTS.list.push(a);
+  alertsSave();
+  alertsSchedule();
+  const mins = Math.round((p.startMs - Date.now()) / 60000);
+  toast(`Alert set — 5 minutes before ${p.name} rises (${misLocal(p.startMs)}). Keep the atlas open` +
+    (IS_IOS && !navigator.standalone ? ', or add it to the calendar for a reminder on a locked phone' : '') + '.', 5200);
+  return mins;
+}
+
+function alertsSave() { try { localStorage.setItem('cosmos.alerts', JSON.stringify(ALERTS.list.slice(-20))); } catch (e) {} }
+function alertsLoad() {
+  try { ALERTS.list = JSON.parse(localStorage.getItem('cosmos.alerts') || '[]').filter(a => a.ms > Date.now()); }
+  catch (e) { ALERTS.list = []; }
+  alertsSchedule();
+}
+function alertsSchedule() {
+  for (const t of ALERTS.timers) clearTimeout(t);
+  ALERTS.timers = [];
+  for (const a of ALERTS.list) {
+    const wait = a.ms - 5 * 60000 - Date.now();
+    if (wait < -5 * 60000 || wait > 2 ** 31 - 1) continue;
+    ALERTS.timers.push(setTimeout(() => alertFire(a), Math.max(0, wait)));
+  }
+}
+function alertFire(a) {
+  const msg = `${a.name} in 5 minutes: ${a.text}.`;
+  try {
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('Look up', { body: msg, icon: 'icons/icon-192.png', tag: 'pass-' + a.ms });
+    }
+  } catch (e) {}
+  if (navigator.vibrate) try { navigator.vibrate([120, 80, 120]); } catch (e) {}
+  const bar = $('#passalert');
+  bar.querySelector('.pat').textContent = msg;
+  bar.classList.add('show');
+  bar.querySelector('[data-pa="go"]').onclick = () => {
+    bar.classList.remove('show');
+    W.time = Date.now(); misRate(1); W.playing = true; syncTime();
+    if (W.mode !== 'sky') enterSky(true);
+    const o = satObject(a.sat);
+    if (o) flyTo(o);
+  };
+  bar.querySelector('[data-pa="x"]').onclick = () => bar.classList.remove('show');
+}
+/* a countdown in the time panel when an alert is near */
+let _alertTickAt = 0;
+function alertsTick() {
+  const now = Date.now();
+  if (now - _alertTickAt < 1000) return;
+  _alertTickAt = now;
+  const el = $('#nextpass');
+  if (!el) return;
+  const a = ALERTS.list.filter(x => x.ms > now - 120000).sort((x, y) => x.ms - y.ms)[0];
+  if (!a || a.ms - now > 3 * 3600000) { el.classList.remove('show'); return; }
+  const s = Math.max(0, Math.round((a.ms - now) / 1000));
+  el.textContent = s > 0 ? `${a.name.replace('International Space Station', 'ISS')} rises in ${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+    : `${a.name.replace('International Space Station', 'ISS')} is up now`;
+  el.classList.add('show');
+}
+
+async function passShare(p, place) {
+  const when = new Date(p.startMs).toLocaleString([], { weekday: 'long', hour: 'numeric', minute: '2-digit' });
+  const text = `The ${p.name} flies over ${place} on ${when} — look ${passDir(p.riseAz != null ? p.riseAz : p.peakAz)}, ` +
+    `it climbs to ${p.peakAlt.toFixed(0)}°. Live sky:`;
+  const url = 'https://cosmos.cool/#iss';
+  try {
+    if (navigator.share) { await navigator.share({ title: 'Look up', text, url }); return; }
+    await navigator.clipboard.writeText(text + ' ' + url);
+    toast('Copied — paste it to a friend');
+  } catch (e) {}
+}
+
+
+/* ---------------------------------------------------------------- hashes */
+function missionHash(h) {
+  if (h === 'artemis') { artStart({}); return true; }
+  if (h === 'iss' || h === 'orbits') {
+    evTab = h === 'iss' ? 'iss' : 'orbit';
+    $$('.evtabs button').forEach(x => x.classList.toggle('on', x.dataset.t === evTab));
+    if (!$('#events').classList.contains('show')) openEvents();
+    return true;
+  }
+  return false;
+}
 
 /* ---------------------------------------------------------- KICK OFF */
 boot().catch(err => {
