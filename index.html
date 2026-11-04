@@ -820,6 +820,19 @@ body.phone #btnInstall{display:none!important}
 #info.peek .hd{border-bottom:none;border-radius:14px}
 #info.peek .minb svg{transform:rotate(180deg)}
 #info .grab{display:none}
+/* A scrolling panel must receive touches itself: .ui is pointer-events:none,
+   which leaves iOS nothing to scroll when a finger lands inside it. */
+#info,#events,#saved,#settings,#bday{pointer-events:auto;overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;touch-action:pan-y}
+#info .bd,#events .bd,#saved .bd,#settings,#bday .bd{touch-action:pan-y}
+.infoacts{display:flex;gap:6px;margin-top:11px;flex-wrap:wrap}
+.infoacts button{font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  padding:9px 12px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+  color:#04101d;background:var(--acc);border:1px solid var(--acc)}
+.infoacts button.alt{color:var(--acc);background:rgba(102,217,255,.1);border-color:rgba(102,217,255,.35)}
+.infoacts svg{width:12px;height:12px;fill:currentColor}
+#info.peek .infoacts{margin-top:8px}
+@media (max-width:900px){#info{max-height:54vh}}
 #info.dragging{transition:none!important}
 @media (max-width:900px){
   #info .hd{padding-top:22px;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
@@ -932,6 +945,10 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
     <div class="kind" id="infokind"></div>
     <h2 id="infoname"></h2>
     <div class="sub" id="infosub"></div>
+    <div class="infoacts">
+      <button id="infogo"><svg viewBox="0 0 24 24"><path d="M3 11.5L21 3l-8.5 18-2.2-7.3z"/></svg><span>Fly there</span></button>
+      <button class="alt" id="infocloser">Closer</button>
+    </div>
   </div>
   <div class="bd" id="infobody"></div>
 </div>
@@ -19697,6 +19714,8 @@ function wireUI() {
         : r === 'shared' ? 'Shared' : 'Could not copy the link');
   };
   $('#infoclose').onclick = e => { e.stopPropagation(); hideInfo(); };
+  $('#infogo').onclick = e => { e.stopPropagation(); infoNavigate(W.infoObj, 1); };
+  $('#infocloser').onclick = e => { e.stopPropagation(); infoNavigate(W.infoObj, 0.35); };
   wireInfoSheet();
   const bi = $('#btnInstall');
   if (bi) {
@@ -20065,8 +20084,37 @@ function showInfo(o) {
     el.onclick = () => { const t = W.byId.get(el.dataset.go); if (t) flyTo(t); });
   p.classList.add('show');
   p.classList.toggle('peek', SHEET.peek);
+  infoGoLabel(o);
   p.style.transform = '';
   W.infoObj = o;
+}
+/** "Fly there" from the info sheet: travel to the object and frame it. */
+function infoNavigate(o, k) {
+  if (!o) return;
+  if (W.mode === 'sky') exitSky();
+  if (W.mode === 'surface') exitSurface();
+  if (CINE.on) stopShot(true);
+  if (ART.on && o !== ART.obj) artStop(true);
+  stopTour();
+  const there = W.focus === o && !W.transition;
+  const minD = (o.radius || 1) * 1.15;
+  if (there) {
+    W.targetDist = clampDist(Math.max(minD, k === 1 ? framingDistance(o) : W.targetDist * k));
+  } else {
+    W.transition = { from: W.focusPos.clone(), to: o, t: 0, dur: 1.6 };
+    W.targetDist = clampDist(Math.max(minD, framingDistance(o) * (k === 1 ? 1 : 0.4)));
+    orientToLight(o);
+  }
+  if (IS_TOUCH) setInfoPeek(true);
+  $('#hint').classList.add('hide');
+  infoGoLabel(o);
+}
+function infoGoLabel(o) {
+  const el = $('#infogo span');
+  if (!el || !o) return;
+  const t = W.mode === 'sky' ? 'Fly there in space'
+    : (W.transition && W.transition.to === o) ? 'Flying\u2026' : (W.focus === o ? 'Re-centre' : 'Fly there');
+  if (el.textContent !== t) el.textContent = t;
 }
 function hideInfo() { $('#info').classList.remove('show', 'peek'); W.infoObj = null; }
 
@@ -20261,6 +20309,7 @@ function updateMissions(dt) {
   MIS.group.visible = near && W.mode !== 'sky' && W.mode !== 'surface';
   artUpdate(dt);
   owUpdate(dt);
+  if (W.infoObj && (W.frame & 7) === 0) infoGoLabel(W.infoObj);
   alertsTick();
 }
 
