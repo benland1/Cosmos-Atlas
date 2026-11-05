@@ -703,6 +703,23 @@ body.cinema #lcbar,body.cinema #settings,body.cinema #saved,body.cinema #tex{dis
   background:none;border:1px solid rgba(255,255,255,.14);border-radius:6px;padding:7px 11px}
 #cinestop:hover{color:#fff;border-color:rgba(255,255,255,.4)}
 body.cinema #toast{display:none!important}
+#docctl{position:absolute;right:18px;bottom:calc(9.3vh + 14px);display:none;align-items:center;gap:6px;pointer-events:auto}
+body.doc #docctl{display:flex}
+#docctl span{font:400 9px/1 var(--mono);letter-spacing:.2em;color:rgba(220,232,255,.5);margin-right:4px}
+#docctl button{font:400 9px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:rgba(220,232,255,.62);
+  background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:7px 10px;cursor:pointer;min-width:30px}
+#docctl #docPrev,#docctl #docNext{font-size:15px;padding:4px 10px}
+#docctl button:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+body.doc #cinettl{max-width:min(58vw,760px);transition:opacity .35s linear}
+body.doc #cinettl h3{font-size:clamp(13px,1.1vw,16px);font-family:var(--mono);font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(190,215,255,.85);margin-bottom:12px}
+body.doc #cinettl p{font:300 clamp(17px,1.75vw,26px)/1.45 var(--f);color:#f2f6ff;text-shadow:0 2px 22px rgba(0,0,0,.85)}
+@media (max-width:900px){
+  body.doc #cinettl{left:6vw;right:6vw;max-width:none;bottom:calc(9.3vh + 64px)}
+  body.doc #cinettl p{font-size:17px}
+  #docctl{left:12px;right:12px;justify-content:center;bottom:calc(9.3vh + 10px + var(--sab))}
+  #cinestop{top:calc(14px + var(--sat))}
+}
 
 /* ------------------------------------------------------------ surface */
 #surfbar{left:18px;bottom:96px;width:min(90vw,290px);display:none;z-index:12}
@@ -1120,6 +1137,11 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
   <div id="cinettl"></div>
   <div id="cineprog"><i id="cinebar"></i></div>
   <button id="cinestop">stop</button>
+  <div id="docctl"><span id="docChap"></span>
+    <button id="docPrev" aria-label="Previous stop">&#8249;</button>
+    <button id="docNext" aria-label="Next stop">&#8250;</button>
+    <button id="docMute">voice on</button>
+    <button id="docRec">&#9679; rec</button></div>
 </div>
 
 <!-- --------------------------------------------------------- deep dive -->
@@ -16343,6 +16365,12 @@ function stopShot(quiet) {
   const el = document.querySelector('#cinema');
   if (el) el.classList.remove('show');
   cineScoreStop();
+  if (CINE.doc) {
+    CINE.doc = false; DOC.on = false; docHush();
+    document.body.classList.remove('doc');
+    const bt = document.querySelector('#btnTour'); if (bt) bt.classList.remove('on');
+    return;
+  }
   if (!quiet) toast('Cut.');
 }
 
@@ -16355,7 +16383,10 @@ function cineSeg(t) {
 
 function stepCine(dt) {
   if (!CINE.on) return;
-  CINE.t += dt;
+  /* The narrated tour holds the clock while the narrator is still speaking. */
+  const adv = CINE.doc ? docGate(dt) : dt;
+  CINE.t += adv;
+  CINE.drift = (CINE.drift || 0) + (dt - adv);
   const K = CINE.keys;
   const T = Math.min(CINE.t, CINE.dur);
   const i = cineSeg(T);
@@ -16383,7 +16414,7 @@ function stepCine(dt) {
   W.dist = W.targetDist = Math.max(8, Math.min(d, cmbWallM()));
 
   const yb = shortAngle(a.y, b.y);
-  W.yaw = W.tYaw = a.y + (yb - a.y) * e;
+  W.yaw = W.tYaw = a.y + (yb - a.y) * e + (CINE.drift || 0) * 0.03;
   W.pitch = W.tPitch = a.p + (b.p - a.p) * e;
   W.fov = (a.fov || 52) + ((b.fov || 52) - (a.fov || 52)) * e;
   W.roll = ((a.roll || 0) + ((b.roll || 0) - (a.roll || 0)) * e) * DEG;
@@ -16419,7 +16450,7 @@ function stepCine(dt) {
     un.uAber.value = 0.0016 * barIn;
     un.uFade.value = fade;
   }
-  cineTitle(CINE.title, CINE.sub, tA);
+  if (CINE.doc) docStep(T, dt); else cineTitle(CINE.title, CINE.sub, tA);
   cineScoreStep(T, b);
 
   if (CINE.t >= CINE.dur + 1.0) stopShot(true);
@@ -16428,8 +16459,8 @@ function stepCine(dt) {
 function cineTitle(ttl, sub, alpha) {
   const el = document.querySelector('#cinettl');
   if (!el) return;
-  if (el.dataset.t !== ttl) {
-    el.dataset.t = ttl;
+  if (el.dataset.t !== ttl + '|' + sub) {
+    el.dataset.t = ttl + '|' + sub;
     el.innerHTML = '<h3>' + esc(ttl) + '</h3><p>' + esc(sub) + '</p>';
   }
   el.style.opacity = String(alpha);
@@ -16500,7 +16531,9 @@ function cineScoreStep(T, key) {
   for (const [o, g, f0] of SCORE.drone) {
     o.frequency.setTargetAtTime(f0 * (1 - Math.min(L, 27) / 190), ac.currentTime, 2.0);
   }
-  /* One event per stop, chosen to belong to what is on screen. */
+  /* One event per stop, chosen to belong to what is on screen. The narrated
+     tour keeps only the drone: chords would talk over the narrator. */
+  if (CINE.doc) return;
   const seg = CINE.i;
   if (seg === SCORE.last) return;
   SCORE.last = seg;
@@ -20173,7 +20206,7 @@ function updateHUD() {
 }
 
 /* -------------------------------------------------------------- TOUR */
-function toggleTour() { W.tour ? stopTour() : startTour(); }
+function toggleTour() { DOC.on ? docStop() : docStart(); }
 function startTour() {
   if (W.mode === 'sky') exitSky();
   W.tour = { i: -1, t: 0, hold: 0 };
@@ -20292,9 +20325,9 @@ function missionsInit() {
   artInit();
   owInit();
   alertsLoad();
-  wireArtBar(); wireOwBar(); wireRec();
+  wireArtBar(); wireOwBar(); wireRec(); wireDoc();
   MIS.ready = true;
-  window.__MIS__ = { ART, OW, REC, ALERTS, artStart, artStop, artState, artKm, owScan, owShowRing, owShowTrain,
+  window.__MIS__ = { DOC, docStart, docStop, docJump, ART, OW, REC, ALERTS, artStart, artStop, artState, artKm, owScan, owShowRing, owShowTrain,
     owShowDebris, owWatchPair, owClearScene, owStats, recStart, recStop, passIcs, passAlert, passShare, missionHash,
     recCinemaShot, alertFire };
 }
@@ -21699,6 +21732,350 @@ function missionHash(h) {
     return true;
   }
   return false;
+}
+
+
+/* ==== documentary.js ==== */
+/* =============================================================================
+   THE GUIDED TOUR — a narrated documentary
+
+   One continuous camera move, built on the same keyframe engine as The Long
+   Shot, from a handrail on the space station out to the oldest light there is
+   and back home again. Each stop carries a few lines of narration. The camera
+   arrives, settles, and then waits for the narrator: it only moves on once the
+   last line has been spoken, drifting slowly around its subject meanwhile, so
+   a slow voice never gets cut off and a fast one never leaves dead air.
+
+   The voice is the device's own speech engine, tuned for a calm, low, measured
+   documentary delivery: a British English male voice where one is installed,
+   slowed down and pitched low, spoken a sentence at a time with pauses between.
+   ========================================================================== */
+
+const DOC = {
+  on: false, muted: false, voice: null, voices: [],
+  stops: [], cur: -1, q: [], speaking: false, line: '', ttl: '', timer: 0,
+  capA: 0, gen: 0,
+};
+
+/* ------------------------------------------------------------ the voice */
+function docRankVoice(v) {
+  let s = 0;
+  const n = v.name, l = v.lang || '';
+  if (/^en/i.test(l)) s += 20; else return -100;
+  if (/en[-_]GB/i.test(l)) s += 12;
+  else if (/en[-_](AU|IE|NZ)/i.test(l)) s += 5;
+  /* male British voices that ship with Apple, Google and Microsoft systems */
+  if (/\b(Daniel|Arthur|Oliver|George|Ryan|Thomas|Malcolm|Alfie|Harry|Lewis|Noah|Rocko|Eddy|Reed)\b/i.test(n)) s += 14;
+  if (/UK English Male/i.test(n)) s += 14;
+  if (/\b(Samantha|Karen|Serena|Kate|Fiona|Moira|Tessa|Libby|Sonia|Maisie|Hazel|Susan|Female|Martha|Stephanie|Flo|Shelley|Sandy|Grandma)\b/i.test(n)) s -= 6;
+  if (/premium|enhanced|natural|neural|siri/i.test(n)) s += 9;
+  if (/online/i.test(n)) s += 3;
+  if (/zarvox|trinoids|bubbles|bells|albert|jester|whisper|bad news|good news|boing|cellos|organ|superstar|wobble|grandpa/i.test(n)) s -= 60;
+  return s;
+}
+function docPickVoice() {
+  if (!('speechSynthesis' in window)) return null;
+  const vs = speechSynthesis.getVoices();
+  if (!vs.length) return null;
+  DOC.voices = vs.slice().sort((a, b) => docRankVoice(b) - docRankVoice(a));
+  DOC.voice = DOC.voices[0] || null;
+  return DOC.voice;
+}
+if ('speechSynthesis' in window) {
+  try { speechSynthesis.addEventListener('voiceschanged', docPickVoice); } catch (e) {}
+}
+
+/* A spoken line's length, for pacing captions when there is no voice and as a
+   safety net for browsers that forget to fire onend. */
+function docEstimate(s) {
+  const words = s.split(/\s+/).length;
+  return 600 + words * 430 + (s.match(/[,;—…]/g) || []).length * 260;
+}
+function docPauseAfter(s) {
+  return /[…—]$/.test(s) ? 1100 : /\?$/.test(s) ? 900 : 650;
+}
+
+function docSay(lines) {
+  docHush();
+  const gen = ++DOC.gen;
+  DOC.q = lines.slice();
+  DOC.speaking = true;
+  docNextLine(gen);
+}
+function docNextLine(gen) {
+  if (gen !== DOC.gen) return;
+  clearTimeout(DOC.timer);
+  const s = DOC.q.shift();
+  if (s == null) { DOC.speaking = false; DOC.line = ''; return; }
+  DOC.line = s;
+  const est = docEstimate(s);
+  const t0 = performance.now();
+  let done = false;
+  const fin = () => {
+    if (done || gen !== DOC.gen) return;
+    done = true;
+    clearTimeout(DOC.timer);
+    /* A voice that "finishes" a sentence almost instantly did not really speak
+       it (no voices installed, or the engine refused): keep the caption up
+       for as long as it would take to read. */
+    const short = Math.max(0, est * 0.7 - (performance.now() - t0));
+    DOC.timer = setTimeout(() => docNextLine(gen), short + docPauseAfter(s));
+  };
+  if (DOC.muted || !('speechSynthesis' in window)) { DOC.timer = setTimeout(fin, est); return; }
+  try {
+    if (!DOC.voice) docPickVoice();
+    const u = new SpeechSynthesisUtterance(s.replace(/…/g, '...'));
+    if (DOC.voice) { u.voice = DOC.voice; u.lang = DOC.voice.lang; }
+    else u.lang = 'en-GB';
+    u.rate = 0.84; u.pitch = 0.78; u.volume = 1;
+    u.onend = fin; u.onerror = fin;
+    DOC.timer = setTimeout(fin, est * 1.9 + 3000);
+    speechSynthesis.speak(u);
+  } catch (e) { DOC.timer = setTimeout(fin, est); }
+}
+function docHush() {
+  DOC.gen++;
+  clearTimeout(DOC.timer);
+  DOC.q = []; DOC.speaking = false; DOC.line = '';
+  try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {}
+}
+
+/* -------------------------------------------------------------- the film */
+/* The side of a world that faces the Sun, so every planet arrives lit. */
+function docLitYaw(id, off) {
+  const o = W.byId.get(id);
+  if (!o) return 0;
+  const p = new THREE.Vector3();
+  (o.parent || o).getPos(p);
+  if (p.lengthSq() === 0) return off || 0;
+  return Math.atan2(-p.x, -p.z) + 0.62 + (off || 0);
+}
+
+function docScript() {
+  let issId = 'earth', issD = 2.6e7;
+  if (typeof findSat === 'function') {
+    const i = findSat('ISS (ZARYA)');
+    if (i >= 0) { const o = satObject(i); if (o) { issId = o.id; issD = 78; } }
+  }
+  SATS.selected = -1;
+  const lit = docLitYaw;
+  const wall = cmbWallM() * 0.985;
+  /* o: object · d: arrival distance · d2: where the slow drift ends ·
+     y/p: camera angle · hold: seconds before the narrator may hold the shot ·
+     go: seconds of travel to reach this stop */
+  return [
+    { o: issId, d: issD, d2: issD * 1.5, y: lit('earth', 0.55), p: 0.06, fov: 36, roll: -1.2, go: 0, hold: 7,
+      ttl: 'Dawn, four hundred kilometres up',
+      say: ['Four hundred kilometres above the Earth, the Sun rises sixteen times a day.',
+        'A handful of people live aboard this fragile outpost, circling the planet at nearly eight kilometres every second.',
+        'And beneath them lies a world that is, as far as we know… entirely unique.'] },
+    { o: 'earth', d: 2.6e7, d2: 2.3e7, y: lit('earth', 0.2), p: 0.22, fov: 44, roll: -0.4, go: 11, hold: 7,
+      ttl: 'The living planet',
+      say: ['This is our home.',
+        'A thin skin of air and water, wrapped around a ball of rock and iron.',
+        'Every creature that has ever lived — every forest, every ocean, every one of us — has lived within that delicate blue haze.',
+        'Remarkably, it is the only place in the universe where we know, for certain, that life exists.'] },
+    { o: 'moon', d: 5.6e6, d2: 4.8e6, y: lit('moon', 0.35), p: 0.12, fov: 40, roll: 0.4, go: 9, hold: 6,
+      ttl: 'The faithful companion',
+      say: ['Our Moon. Born, it seems, from a colossal collision more than four and a half billion years ago.',
+        'Its gentle pull lifts the oceans twice each day, and so it sets the rhythm of life along every shore on Earth.',
+        'Twelve people have walked upon it. And in April 2026, four more swept around its far side — farther from home than anyone had ever been.'] },
+    { o: 'sun', d: 5.4e9, d2: 4.6e9, y: 2.9, p: 0.3, fov: 52, roll: 0, go: 10, hold: 6,
+      ttl: 'The furnace',
+      say: ['And this is the source of it all.',
+        'Every second, the Sun turns four million tonnes of itself into pure energy.',
+        'Light leaving its surface now will reach the Earth in a little over eight minutes… where it will be caught by a leaf.'] },
+    { o: 'mars', d: 2.3e7, d2: 1.9e7, y: lit('mars', 0.3), p: 0.18, fov: 42, roll: 0.6, go: 9, hold: 6,
+      ttl: 'The red planet',
+      say: ['Mars. A cold and silent desert.',
+        'Yet the dry valleys carved across its face tell us that water once flowed here — rivers, lakes, perhaps even a shallow sea.',
+        'Whether anything ever lived in them remains one of the great questions of our time.'] },
+    { o: 'jupiter', d: 6.5e8, d2: 5.4e8, y: lit('jupiter', 0.25), p: 0.1, fov: 42, roll: -0.6, go: 9, hold: 6,
+      ttl: 'The giant',
+      say: ['Jupiter is a giant in every sense — more than twice as massive as all the other planets put together.',
+        'Its great red storm is wider than the Earth itself, and has been raging for well over a century.',
+        'And circling it is Europa: a small, icy moon, hiding beneath its shell an ocean holding more water than all of Earth’s seas.'] },
+    { o: 'saturn', d: 8.6e8, d2: 7.4e8, y: lit('saturn', 0.45), p: 0.05, fov: 34, roll: 1.0, go: 9, hold: 7,
+      ttl: 'A ring of ice',
+      say: ['Few sights in all of nature are quite so extraordinary.',
+        'These rings stretch nearly three hundred thousand kilometres from edge to edge… and yet, in most places, they are only about ten metres thick.',
+        'Countless fragments of ice, each on its own orbit — a delicate structure that may be younger than the dinosaurs.'] },
+    { o: 'pluto', d: 7e6, d2: 5.6e6, y: lit('pluto', 0.3), p: 0.2, fov: 40, roll: 0, go: 10, hold: 6,
+      ttl: 'A heart of ice',
+      say: ['Far beyond, in the cold twilight at the edge of the planets, lies Pluto.',
+        'When a spacecraft finally arrived in 2015, it found mountains of water ice, and a vast, heart-shaped plain of frozen nitrogen.',
+        'Even here, almost six billion kilometres from the Sun, this little world is quietly, slowly changing.'] },
+    { o: 'sun', d: 2.4e13, d2: 2.9e13, y: 4.3, p: 0.55, fov: 58, roll: 0, go: 11, hold: 6,
+      ttl: 'The farthest traveller',
+      say: ['Launched in 1977, the Voyager 1 spacecraft is now the most distant object our species has ever made.',
+        'In 1990, from six billion kilometres away, it turned its camera around and took one last photograph of home.',
+        'The Earth appeared as a single pale blue dot… less than a pixel, suspended in a sunbeam.'] },
+    { o: 'sun', d: 2.2e18, d2: 2.9e18, y: 5.1, p: 0.28, fov: 52, roll: -0.7, go: 11, hold: 6,
+      ttl: 'The neighbours',
+      say: ['Beyond our Sun, the distances become almost impossible to grasp.',
+        'The nearest star, Proxima Centauri, is so far away that its light takes more than four years to reach us.',
+        'And many of these stars, we now know, have planets of their own.'] },
+    { o: 'M42', d: 1.1e18, d2: 8.6e17, y: 5.45, p: 0.16, fov: 48, roll: 0.6, go: 10, hold: 6,
+      ttl: 'Where stars are born',
+      say: ['In the sword of Orion, a great cloud of gas and dust is giving birth.',
+        'Deep inside, new suns are igniting… and around some of them swirl the dusty discs from which planets may one day form.',
+        'Our own Sun was born in a nursery much like this one, four and a half billion years ago.'] },
+    { o: 'bh:sgra', d: 3.6e11, d2: 2.8e11, y: 6.1, p: 0.06, fov: 44, roll: 1.4, blur: 0.0022, go: 14, hold: 8,
+      ttl: 'The heart of darkness',
+      say: ['And here, at the very heart of our galaxy, lies something truly strange.',
+        'A black hole, four million times the mass of the Sun.',
+        'Nothing — not even light — can escape it. What you see is light bent by its gravity, circling the edge of the abyss.'] },
+    { o: 'sun', d: 1.4e21, d2: 1.7e21, y: 6.8, p: 0.62, fov: 56, roll: 0, go: 13, hold: 6,
+      ttl: 'The Milky Way',
+      say: ['Our galaxy, the Milky Way. A great spiral of several hundred billion stars.',
+        'Our Sun is just one of them, in a quiet arm two thirds of the way out from the centre.',
+        'It takes more than two hundred million years to complete a single orbit.'] },
+    { o: 'M31', d: 2.3e21, d2: 1.9e21, y: 7.2, p: 0.34, fov: 50, roll: -0.6, go: 11, hold: 6,
+      ttl: 'A neighbour approaching',
+      say: ['Two and a half million light years away lies our nearest great neighbour, Andromeda.',
+        'The light you see left it before there were any humans on Earth.',
+        'And it is coming towards us. In four or five billion years, the two galaxies will meet… and slowly merge into one.'] },
+    { o: 'sun', d: 9e24, d2: 1.1e25, y: 7.95, p: 0.2, fov: 52, roll: 0, go: 11, hold: 6,
+      ttl: 'The cosmic web',
+      say: ['Pull back further still, and whole galaxies become mere specks of light.',
+        'Each of these points is a real galaxy, mapped by astronomers.',
+        'Together they form a vast web of filaments, stretched around great, empty voids.'] },
+    { o: 'sun', d: wall, d2: wall, y: 8.6, p: 0.06, fov: 48, roll: 0, blur: 0.003, go: 11, hold: 7,
+      ttl: 'The oldest light',
+      say: ['And here, we reach the limit of what can be seen.',
+        'This faint glow is the oldest light in the universe, released less than four hundred thousand years after it all began.',
+        'Beyond it, there is nothing that light has yet had time to bring us.'] },
+    { o: 'earth', d: 2.6e7, d2: 2.9e7, y: lit('earth', 0.15), p: 0.2, fov: 44, roll: 0, go: 18, hold: 8, last: true,
+      ttl: 'Home',
+      say: ['From the edge of everything… back to where we began.',
+        'Of all the worlds we know, only one is home to forests and oceans, to birdsong… to us.',
+        'It is, as far as we can tell, the most precious place in the universe.',
+        'It deserves our care.'] },
+  ];
+}
+
+/** Stops → keyframes for the cinema engine: an arrival and a slow drift per stop. */
+function docKeys(stops) {
+  const K = [];
+  let t = 0;
+  for (let k = 0; k < stops.length; k++) {
+    const s = stops[k];
+    t += s.go;
+    s.ta = t;
+    K.push({ t, o: s.o, d: s.d, y: s.y, p: s.p, fov: s.fov, roll: s.roll, blur: s.blur || 0 });
+    t += s.hold;
+    s.th = t;
+    K.push({ t, o: s.o, d: s.d2, y: s.y + 0.16, p: s.p + 0.02, fov: s.fov, roll: (s.roll || 0) * 0.6, blur: s.blur || 0 });
+  }
+  /* a final breath on the Earth, then the fade */
+  const last = stops[stops.length - 1];
+  K.push({ t: t + 4, o: last.o, d: last.d2 * 1.08, y: last.y + 0.22, p: last.p + 0.03, fov: last.fov, roll: 0 });
+  return K;
+}
+
+function docStart() {
+  if (DOC.on) { docStop(); return; }
+  /* The first words must be spoken inside the tap that started the tour, or
+     iOS will refuse to speak at all. */
+  DOC.muted = !NARR.on;
+  if (!DOC.muted && 'speechSynthesis' in window) {
+    docPickVoice();
+    try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) {}
+  }
+  stopTour();
+  hideInfo();
+  $('#events').classList.remove('show');
+  if (typeof ART === 'object' && ART.on) artStop(true);
+  DOC.stops = docScript().filter(s => W.byId.get(s.o));
+  const K = docKeys(DOC.stops);
+  CINE.doc = true; CINE.drift = 0;
+  DOC.on = true; DOC.cur = -1; DOC.capA = 0; DOC.ttl = ''; DOC.line = '';
+  startShot(K, 'The Tour');
+  if (!CINE.on) { CINE.doc = false; DOC.on = false; return; }
+  W.rate = 30;
+  document.body.classList.add('doc');
+  $('#btnTour').classList.add('on');
+  docSyncUi();
+}
+
+function docStop() {
+  if (!DOC.on) return;
+  DOC.on = false;
+  docHush();
+  if (CINE.on) stopShot(true);
+  CINE.doc = false;
+  document.body.classList.remove('doc');
+  $('#btnTour').classList.remove('on');
+}
+
+/* Called from the cinema stepper: may the clock move on? */
+function docGate(dt) {
+  const s = DOC.stops[DOC.cur];
+  if (!s || !DOC.speaking) return dt;
+  if (CINE.t >= s.th) return 0;
+  return Math.min(dt, s.th - CINE.t);
+}
+
+/* Called every frame with the cinema clock: narration, captions. */
+function docStep(T, dt) {
+  const next = DOC.stops[DOC.cur + 1];
+  if (next && T >= next.ta - 1.4) {
+    DOC.cur++;
+    DOC.ttl = next.ttl;
+    docSay(next.say);
+    docSyncUi();
+  }
+  const s = DOC.stops[DOC.cur];
+  /* captions: up while the stop is being told, away while travelling */
+  const want = s && (DOC.speaking || T < s.th) ? 1 : 0;
+  DOC.capA += (want - DOC.capA) * Math.min(1, dt * (want ? 2.2 : 1.6));
+  CINE.title = DOC.ttl;
+  CINE.sub = DOC.line || (s && DOC.speaking ? '' : CINE.sub);
+  cineTitle(CINE.title, CINE.sub, DOC.capA);
+  const bar = $('#cinebar');
+  if (bar) bar.style.width = ((DOC.cur + 1) / DOC.stops.length * 100).toFixed(1) + '%';
+}
+
+function docJump(dir) {
+  if (!DOC.on) return;
+  const j = Math.max(0, Math.min(DOC.stops.length - 1, DOC.cur + dir));
+  docHush();
+  DOC.cur = j - 1;
+  CINE.t = Math.max(0, DOC.stops[j].ta - 3.5);
+  docSyncUi();
+}
+
+function docSyncUi() {
+  const m = $('#docMute');
+  if (m) m.textContent = DOC.muted ? 'voice off' : 'voice on';
+  const c = $('#docChap');
+  if (c) c.textContent = DOC.cur >= 0 ? `${DOC.cur + 1} / ${DOC.stops.length}` : '';
+}
+
+function wireDoc() {
+  $('#docPrev').onclick = e => { e.stopPropagation(); docJump(-1); };
+  $('#docNext').onclick = e => { e.stopPropagation(); docJump(1); };
+  $('#docMute').onclick = e => {
+    e.stopPropagation();
+    DOC.muted = !DOC.muted;
+    if (DOC.muted) { try { speechSynthesis.cancel(); } catch (er) {} }
+    else docPickVoice();
+    /* restart the current stop's lines from the one on screen */
+    const s = DOC.stops[DOC.cur];
+    if (s && DOC.speaking) {
+      const at = Math.max(0, s.say.indexOf(DOC.line));
+      docSay(s.say.slice(at));
+    }
+    docSyncUi();
+  };
+  $('#docRec').onclick = e => {
+    e.stopPropagation();
+    if (REC.on) { recStop(); return; }
+    if (recStart({ title: 'The Tour', kind: 'cine' })) {
+      const watch = () => { if (!REC.on) return; if (!CINE.on) { recStop(); return; } setTimeout(watch, 400); };
+      setTimeout(watch, 400);
+    }
+  };
 }
 
 /* ---------------------------------------------------------- KICK OFF */
