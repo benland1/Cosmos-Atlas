@@ -21396,6 +21396,8 @@ function recStart(opts = {}) {
       REC.dest = AUDIO.ctx.createMediaStreamDestination();
       AUDIO.master.connect(REC.dest);
       for (const t of REC.dest.stream.getAudioTracks()) stream.addTrack(t);
+      if (typeof docRoute === 'function') docRoute();
+      if (DOC.ngain) DOC.ngain.connect(REC.dest);
     } catch (e) { REC.dest = null; }
   }
   REC.mime = recPickMime();
@@ -21754,8 +21756,37 @@ function missionHash(h) {
 const DOC = {
   on: false, muted: false, voice: null, voices: [],
   stops: [], cur: -1, q: [], speaking: false, line: '', ttl: '', timer: 0,
-  capA: 0, gen: 0,
+  capA: 0, gen: 0, el: null, src: null, ngain: null, rec: true,
 };
+
+/* Recorded narration (ElevenLabs stock voice "George"), one file per line:
+   narr/nSS_L.mp3. The device voice is only a fallback when a file won't play. */
+function docUrl(n, i) { return 'narr/n' + String(n).padStart(2, '0') + '_' + i + '.mp3'; }
+function docAudioEl() {
+  if (DOC.el) return DOC.el;
+  const el = new Audio();
+  el.preload = 'auto'; el.playsInline = true; el.setAttribute('playsinline', '');
+  DOC.el = el;
+  return el;
+}
+/* Route the narration through the page's audio graph (so recordings carry it),
+   but only once that graph is actually running — a suspended context would
+   silence the element. */
+function docRoute() {
+  if (DOC.src || !AUDIO.ctx || AUDIO.ctx.state !== 'running') return;
+  try {
+    DOC.src = AUDIO.ctx.createMediaElementSource(docAudioEl());
+    DOC.ngain = AUDIO.ctx.createGain();
+    DOC.ngain.gain.value = 1;
+    DOC.src.connect(DOC.ngain);
+    DOC.ngain.connect(AUDIO.ctx.destination);
+    if (REC.on && REC.dest) DOC.ngain.connect(REC.dest);
+  } catch (e) { DOC.src = null; }
+}
+function docWarm(s) {
+  if (!s || s.n == null) return;
+  for (let i = 0; i < s.say.length; i++) { try { fetch(docUrl(s.n, i)).catch(() => {}); } catch (e) {} }
+}
 
 /* ------------------------------------------------------------ the voice */
 function docRankVoice(v) {
@@ -21795,10 +21826,11 @@ function docPauseAfter(s) {
   return /[…—]$/.test(s) ? 1100 : /\?$/.test(s) ? 900 : 650;
 }
 
-function docSay(lines) {
+function docSay(lines, n, from) {
   docHush();
   const gen = ++DOC.gen;
   DOC.q = lines.slice();
+  DOC.qn = n; DOC.qi = from || 0;
   DOC.speaking = true;
   docNextLine(gen);
 }
@@ -21807,6 +21839,7 @@ function docNextLine(gen) {
   clearTimeout(DOC.timer);
   const s = DOC.q.shift();
   if (s == null) { DOC.speaking = false; DOC.line = ''; return; }
+  const li = DOC.qi++;
   DOC.line = s;
   const est = docEstimate(s);
   const t0 = performance.now();
@@ -21821,7 +21854,32 @@ function docNextLine(gen) {
     const short = Math.max(0, est * 0.7 - (performance.now() - t0));
     DOC.timer = setTimeout(() => docNextLine(gen), short + docPauseAfter(s));
   };
-  if (DOC.muted || !('speechSynthesis' in window)) { DOC.timer = setTimeout(fin, est); return; }
+  if (DOC.muted) { DOC.timer = setTimeout(fin, est); return; }
+  if (DOC.rec && DOC.qn != null) {
+    const el = docAudioEl();
+    let fell = false;
+    const fallback = () => {
+      if (fell || done || gen !== DOC.gen) return;
+      fell = true; clearTimeout(DOC.timer);
+      docSpeakTTS(s, est, fin);
+    };
+    docRoute();
+    DOC.playTok = (DOC.playTok || 0) + 1;
+    el.muted = false;
+    el.onended = fin;
+    el.onerror = fallback;
+    el.src = docUrl(DOC.qn, li);
+    DOC.timer = setTimeout(fin, est * 2.5 + 4000);
+    try {
+      const pr = el.play();
+      if (pr && pr.catch) pr.catch(fallback);
+    } catch (e) { fallback(); }
+    return;
+  }
+  docSpeakTTS(s, est, fin);
+}
+function docSpeakTTS(s, est, fin) {
+  if (!('speechSynthesis' in window)) { DOC.timer = setTimeout(fin, est); return; }
   try {
     if (!DOC.voice) docPickVoice();
     const u = new SpeechSynthesisUtterance(s.replace(/…/g, '...'));
@@ -21838,6 +21896,7 @@ function docHush() {
   clearTimeout(DOC.timer);
   DOC.q = []; DOC.speaking = false; DOC.line = '';
   try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {}
+  try { if (DOC.el) { DOC.el.onended = DOC.el.onerror = null; DOC.el.pause(); } } catch (e) {}
 }
 
 /* -------------------------------------------------------------- the film */
@@ -21863,7 +21922,7 @@ function docScript() {
   /* o: object · d: arrival distance · d2: where the slow drift ends ·
      y/p: camera angle · hold: seconds before the narrator may hold the shot ·
      go: seconds of travel to reach this stop */
-  return [
+  return docNumber([
     { o: issId, d: issD, d2: issD * 1.5, y: lit('earth', 0.55), p: 0.06, fov: 36, roll: -1.2, go: 0, hold: 7,
       ttl: 'Dawn, four hundred kilometres up',
       say: ['Four hundred kilometres above the Earth, the Sun rises sixteen times a day.',
@@ -21951,8 +22010,9 @@ function docScript() {
         'Of all the worlds we know, only one is home to forests and oceans, to birdsong… to us.',
         'It is, as far as we can tell, the most precious place in the universe.',
         'It deserves our care.'] },
-  ];
+  ]);
 }
+function docNumber(a) { a.forEach((s, i) => { s.n = i; }); return a; }
 
 /** Stops → keyframes for the cinema engine: an arrival and a slow drift per stop. */
 function docKeys(stops) {
@@ -21982,6 +22042,20 @@ function docStart() {
     docPickVoice();
     try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) {}
   }
+  /* unlock the narration player inside this tap too (iOS) */
+  if (!DOC.muted) {
+    try {
+      const el = docAudioEl();
+      el.src = docUrl(0, 0); el.muted = true;
+      const pr = el.play();
+      const tok = DOC.playTok = (DOC.playTok || 0) + 1;
+      const un = () => {
+        if (tok !== DOC.playTok) return;   /* a real line has already started */
+        try { el.pause(); el.currentTime = 0; } catch (e) {} el.muted = false;
+      };
+      if (pr && pr.then) pr.then(un, un); else un();
+    } catch (e) {}
+  }
   stopTour();
   hideInfo();
   $('#events').classList.remove('show');
@@ -21990,6 +22064,7 @@ function docStart() {
   const K = docKeys(DOC.stops);
   CINE.doc = true; CINE.drift = 0;
   DOC.on = true; DOC.cur = -1; DOC.capA = 0; DOC.ttl = ''; DOC.line = '';
+  docWarm(DOC.stops[0]); docWarm(DOC.stops[1]);
   startShot(K, 'The Tour');
   if (!CINE.on) { CINE.doc = false; DOC.on = false; return; }
   W.rate = 30;
@@ -22022,7 +22097,8 @@ function docStep(T, dt) {
   if (next && T >= next.ta - 1.4) {
     DOC.cur++;
     DOC.ttl = next.ttl;
-    docSay(next.say);
+    docSay(next.say, next.n, 0);
+    docWarm(DOC.stops[DOC.cur + 1]);
     docSyncUi();
   }
   const s = DOC.stops[DOC.cur];
@@ -22058,13 +22134,13 @@ function wireDoc() {
   $('#docMute').onclick = e => {
     e.stopPropagation();
     DOC.muted = !DOC.muted;
-    if (DOC.muted) { try { speechSynthesis.cancel(); } catch (er) {} }
+    if (DOC.muted) { try { speechSynthesis.cancel(); } catch (er) {} try { DOC.el && DOC.el.pause(); } catch (er) {} }
     else docPickVoice();
     /* restart the current stop's lines from the one on screen */
     const s = DOC.stops[DOC.cur];
     if (s && DOC.speaking) {
       const at = Math.max(0, s.say.indexOf(DOC.line));
-      docSay(s.say.slice(at));
+      docSay(s.say.slice(at), s.n, at);
     }
     docSyncUi();
   };
