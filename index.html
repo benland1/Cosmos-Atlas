@@ -19863,7 +19863,11 @@ function wireUI() {
     evTab = b.dataset.t;
     renderEvents();
   });
-  $('#btnSettings').onclick = () => $('#settings').classList.toggle('show');
+  $('#btnSettings').onclick = () => {
+    const on = !$('#settings').classList.contains('show');
+    $('#events').classList.remove('show'); $('#saved').classList.remove('show');
+    $('#settings').classList.toggle('show', on);
+  };
   $('#btnHome').onclick = () => { stopTour(); if (W.mode === 'sky') exitSky(); else flyTo(W.byId.get('earth')); };
   $('#btnSky').onclick = toggleSky;
   $('#btnShare').onclick = async () => {
@@ -22624,7 +22628,9 @@ boot().catch(err => {
   /* ------------------------------------------------------------- panel */
   function openPanel(show = true) {
     const p = $('#bday');
-    for (const id of ['#events', '#saved', '#settings']) { const e = $(id); if (e) e.classList.remove('show'); }
+    /* only opening the birthday panel clears the others; closing it must not,
+       or it shuts the very panel whose button was just pressed */
+    if (show) for (const id of ['#events', '#saved', '#settings']) { const e = $(id); if (e) e.classList.remove('show'); }
     p.classList.toggle('show', show);
     document.body.classList.toggle('bdayopen', show);
     $('#btnBday').classList.toggle('on', show);
