@@ -541,7 +541,7 @@ body.skymode #ladder .track{background:linear-gradient(90deg,#2a6cff,#66d9ff,#ff
   text-transform:uppercase;color:var(--acc)}
 #events h2,#saved h2{font:300 24px/1.1 var(--sans);margin:8px 0 5px}
 #events .sub,#saved .sub{font:400 11.5px/1.45 var(--sans);color:var(--dim)}
-#events .close,#saved .close{position:absolute;top:14px;right:14px;width:26px;height:26px;
+#events .close,#saved .close,#deepg .close{position:absolute;top:14px;right:14px;width:26px;height:26px;
   border-radius:7px;border:1px solid var(--edge);color:var(--dim);cursor:pointer;
   display:grid;place-items:center;background:none;font-size:15px;line-height:1;z-index:3}
 .evtabs{display:flex;gap:4px;padding:10px 14px 4px;position:sticky;top:104px;z-index:2;
@@ -850,6 +850,89 @@ body.phone #btnInstall{display:none!important}
 .infoacts svg{width:12px;height:12px;fill:currentColor}
 #info.peek .infoacts{margin-top:8px}
 @media (max-width:900px){#info{max-height:54vh}}
+/* ------------------------------------------------------------ deep zoom */
+#deepg{position:fixed;z-index:70;right:calc(16px + var(--sar));top:calc(70px + var(--sat));
+  width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 150px - var(--sat) - var(--sab));
+  display:none;flex-direction:column;pointer-events:auto;border-radius:14px;overflow:hidden}
+#deepg.show{display:flex}
+#deepg .hd{padding:15px 18px 12px;border-bottom:1px solid var(--edge);position:relative}
+#deepg .hd h4{font:600 15px/1.2 var(--sans);letter-spacing:.01em}
+#deepg .hd p{font:400 12px/1.45 var(--sans);color:var(--dim);margin-top:4px;padding-right:30px}
+#deepg .close{position:absolute;right:12px;top:12px}
+#deepgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));grid-auto-rows:max-content;gap:10px;padding:14px;flex:1 1 auto;min-height:0;
+  overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.dgcard{all:unset;cursor:pointer;display:flex;flex-direction:column;border-radius:10px;overflow:hidden;
+  background:rgba(255,255,255,.035);border:1px solid var(--edge);transition:border-color .2s,transform .2s}
+.dgcard:hover,.dgcard:focus-visible{border-color:rgba(102,217,255,.6);transform:translateY(-2px)}
+.dgimg{display:block;width:100%;aspect-ratio:4/3;flex:none;background:#000 center/cover no-repeat}
+.dgtx{display:flex;flex-direction:column;gap:3px;padding:9px 10px 10px}
+.dgtx b{font:600 12.5px/1.25 var(--sans);color:var(--ink)}
+.dgtx i{font:400 11px/1.3 var(--sans);font-style:normal;color:var(--dim)}
+.dgtx em{font:500 9px/1.2 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-top:2px}
+#deepv{position:fixed;inset:0;z-index:80;background:#000;display:none;pointer-events:auto;touch-action:none}
+#deepv.show{display:block}
+#dvos{position:absolute!important;left:0;top:0;width:100%;height:100%;background:#000}
+#dvthumb{position:absolute;inset:0;background:#000 center/contain no-repeat;filter:blur(14px) brightness(.8);
+  transform:scale(1.04);transition:opacity .8s;pointer-events:none}
+#deepv.ready #dvthumb{opacity:0}
+#dvload{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:500 11px/1.4 var(--mono);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--dim);transition:opacity .4s;pointer-events:none;text-align:center}
+#deepv.ready #dvload{opacity:0}
+.dvtop{position:absolute;left:0;right:0;top:0;padding:calc(16px + var(--sat)) calc(18px + var(--sar)) 34px calc(20px + var(--sal));
+  display:flex;align-items:flex-start;gap:12px;pointer-events:none;
+  background:linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.35) 65%,transparent)}
+.dvtop>*{pointer-events:auto}
+.dvt{flex:1;min-width:0;pointer-events:none!important}
+.dvt .k{font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc)}
+.dvt h3{font:600 clamp(20px,3.2vw,30px)/1.1 var(--sans);margin-top:7px;letter-spacing:-.01em}
+.dvt .s{font:400 13px/1.35 var(--sans);color:var(--dim);margin-top:5px}
+.dvb{all:unset;cursor:pointer;height:36px;min-width:36px;padding:0 12px;border-radius:9px;display:inline-flex;
+  align-items:center;justify-content:center;gap:6px;font:600 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink);background:rgba(10,16,30,.66);border:1px solid var(--edge);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.dvb:hover{border-color:rgba(102,217,255,.55)}
+.dvb.pri{color:#04101d;background:var(--acc);border-color:var(--acc)}
+.dvb svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+#dvclose{font-size:20px;padding:0;width:36px}
+.dvctl{position:absolute;right:calc(18px + var(--sar));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:7px}
+.dvctl .dvb{width:40px;height:40px;padding:0;font-size:18px}
+.dvbot{position:absolute;left:calc(20px + var(--sal));bottom:calc(18px + var(--sab));max-width:min(560px,calc(100vw - 260px));
+  padding:14px 16px 12px;border-radius:12px;background:rgba(6,10,20,.72);border:1px solid var(--edge);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:opacity .35s,transform .35s}
+#dvabout{max-height:60vh;overflow:hidden;transition:max-height .35s,opacity .3s}
+#deepv.info-off #dvabout{max-height:0;opacity:0}
+#deepv.info-off .dvnav{margin-top:0}
+#dvblurb{font:400 13.5px/1.55 var(--sans);color:#d6def2}
+#dvcredit{font:400 10.5px/1.45 var(--sans);color:var(--dimmer);margin-top:8px}
+#dvcredit a{color:var(--dim)}
+.dvnav{display:flex;align-items:center;gap:8px;margin-top:10px}
+#dvcount,#dvzoomlvl{font:500 9.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+#dvzoomlvl{margin-left:auto;color:var(--acc)}
+#deepv .navigator{border-radius:8px;overflow:hidden;margin:0 calc(18px + var(--sar)) calc(18px + var(--sab)) 0!important}
+.deepcards{display:flex;flex-direction:column;gap:8px;margin:2px 0 12px}
+.deepcard{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:8px;border-radius:10px;
+  background:rgba(102,217,255,.07);border:1px solid rgba(102,217,255,.28)}
+.deepcard:hover{border-color:rgba(102,217,255,.6)}
+.dci{flex:none;width:76px;height:56px;border-radius:7px;background:#000 center/cover no-repeat}
+.dct{display:flex;flex-direction:column;gap:4px}
+.dct b{font:600 12.5px/1.25 var(--sans);color:var(--ink)}
+.dct i{font:400 11px/1.3 var(--sans);font-style:normal;color:var(--dim)}
+@media (max-width:700px){
+  #deepg{left:calc(10px + var(--sal));right:calc(10px + var(--sar));width:auto;top:calc(60px + var(--sat));
+    max-height:calc(100vh - 140px - var(--sat) - var(--sab))}
+  #deepgrid{grid-template-columns:repeat(2,1fr);gap:8px;padding:10px}
+  .dvtop{padding:calc(12px + var(--sat)) calc(12px + var(--sar)) 28px calc(14px + var(--sal));flex-wrap:wrap}
+  .dvt{flex-basis:calc(100% - 50px)}
+  .dvtop .dvact{order:3;width:100%;display:flex;gap:6px}
+  .dvctl{top:auto;bottom:calc(14px + var(--sab));transform:none;right:calc(12px + var(--sar))}
+  .dvctl .dvb{width:38px;height:38px}
+  .dvbot{left:calc(10px + var(--sal));right:calc(62px + var(--sar));bottom:calc(14px + var(--sab));max-width:none;
+    padding:10px 12px 10px;max-height:44vh;overflow:auto}
+  #dvabout{max-height:30vh;overflow:auto}
+  .dvnav .dvb{height:32px;min-width:40px}
+  #dvzoomlvl{display:none}
+  #dvblurb{font-size:12.5px;line-height:1.5}
+}
+
 #info.dragging{transition:none!important}
 @media (max-width:900px){
   #info .hd{padding-top:22px;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
@@ -929,6 +1012,9 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
     <button class="btn" id="btnBday" title="Find your birthday star">
       <svg viewBox="0 0 24 24"><path d="M12 3l1.9 4.6 4.9.4-3.7 3.2 1.1 4.8L12 13.5 7.8 16l1.1-4.8L5.2 8l4.9-.4z"/><path d="M4 21h16"/></svg>
       <span class="lb">Birthday</span></button>
+    <button class="btn" id="btnDeep" title="Telescope images — zoom into Hubble and Webb photographs (G)">
+      <svg viewBox="0 0 24 24"><path d="M4 15l9-5 2 3.5-9 5zM13 10l5-2.8 2 3.5-5 2.8"/><path d="M9 17.5L7 22M11 16.5l2 5.5"/></svg>
+      <span class="lb">Telescope</span></button>
     <button class="btn" id="btnTour" title="Guided cinematic tour (T)">
       <svg viewBox="0 0 24 24"><path d="M5 4l14 8-14 8z"/></svg>
       <span class="lb">Tour</span></button>
@@ -968,6 +1054,41 @@ body.bdayopen #ladder,body.bdayopen #relbar,body.bdayopen #lcbar{display:none!im
     </div>
   </div>
   <div class="bd" id="infobody"></div>
+</div>
+
+<!-- ------------------------------------------------------- deep zoom -->
+<div class="glass" id="deepg">
+  <div class="hd"><h4>Telescope images</h4>
+    <p>The full-resolution photographs from Hubble and Webb. Open one and zoom in until you reach the telescope’s finest detail.</p>
+    <button class="close" id="deepgclose" aria-label="Close">×</button></div>
+  <div id="deepgrid"></div>
+</div>
+<div id="deepv" aria-modal="true" role="dialog">
+  <div id="dvthumb"></div>
+  <div id="dvos"></div>
+  <div id="dvload">Loading telescope image…</div>
+  <div class="dvtop">
+    <div class="dvt"><div class="k" id="dvkind"></div><h3 id="dvname"></h3><div class="s" id="dvsub"></div></div>
+    <div class="dvact">
+      <button class="dvb pri" id="dvfly"><svg viewBox="0 0 24 24"><path d="M3 11.5L21 3l-8.5 18-2.2-7.3z" fill="currentColor" stroke="none"/></svg>Fly there</button>
+      <button class="dvb" id="dvinfo">About</button>
+    </div>
+    <button class="dvb" id="dvclose" aria-label="Close">×</button>
+  </div>
+  <div class="dvctl">
+    <button class="dvb" id="dvin" aria-label="Zoom in">+</button>
+    <button class="dvb" id="dvout" aria-label="Zoom out">−</button>
+    <button class="dvb" id="dvhome" aria-label="Whole image"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+  <div class="dvbot">
+    <div id="dvabout"><div id="dvblurb"></div>
+    <div id="dvcredit"></div></div>
+    <div class="dvnav">
+      <button class="dvb" id="dvprev" aria-label="Previous image">‹</button>
+      <button class="dvb" id="dvnext" aria-label="Next image">›</button>
+      <span id="dvcount"></span><span id="dvzoomlvl"></span>
+    </div>
+  </div>
 </div>
 
 <!-- -------------------------------------------------------- settings -->
@@ -10000,6 +10121,8 @@ function buildStellar(realm) {
     root.add(pts);
     realm.messier = pts;
   }
+
+  if (typeof deepRegister === 'function') deepRegister(reg);
 
   /* ------------------------------------------------ MILKY WAY 3D MODEL */
   realm.galaxy = buildMilkyWay(GAL);
@@ -19255,6 +19378,8 @@ function animate() {
   const raw = (now - _lastT) / 1000;
   const dt = Math.min(raw, 0.1);
   _lastT = now;
+  /* the telescope viewer covers everything: let the GPU rest */
+  if (DEEPV.open) return;
   W.frame++;
 
   if (W.playing) W.time += dt * 1000 * W.rate;
@@ -20037,6 +20162,7 @@ function showInfo(o) {
     html += `<figure class="shot"><img src="${esc(pic.url)}" alt="${esc(o.name)}" loading="lazy">` +
       `<figcaption>${esc(pic.caption || '')} <span>${esc(pic.credit || '')}</span></figcaption></figure>`;
   }
+  if (typeof deepInfoHtml === 'function') html += deepInfoHtml(o);
   const blurb = d.blurb;
   if (blurb) html += `<div class="blurb">${esc(blurb)}</div>`;
   if (typeof CRAFT_DOSSIER === 'object') {
@@ -20152,6 +20278,7 @@ function infoGoLabel(o) {
 function hideInfo() { $('#info').classList.remove('show', 'peek'); W.infoObj = null; }
 
 function subline(o) {
+  if (o.deepOnly) return deepFmtLy(o.distLy) + ' away';
   if (o.exo) return o.exo._ly.toFixed(1) + ' light-years · ' + o.exo.p.length +
     (o.exo.p.length === 1 ? ' planet' : ' planets');
   if (o.exoPlanet) return 'Orbiting ' + o.exoHost.n + ' · ' + o.exoHost._ly.toFixed(1) + ' ly';
@@ -20325,9 +20452,9 @@ function missionsInit() {
   artInit();
   owInit();
   alertsLoad();
-  wireArtBar(); wireOwBar(); wireRec(); wireDoc();
+  wireArtBar(); wireOwBar(); wireRec(); wireDoc(); wireDeep();
   MIS.ready = true;
-  window.__MIS__ = { DOC, docStart, docStop, docJump, ART, OW, REC, ALERTS, artStart, artStop, artState, artKm, owScan, owShowRing, owShowTrain,
+  window.__MIS__ = { DEEPV, deepOpen, deepGallery, DOC, docStart, docStop, docJump, ART, OW, REC, ALERTS, artStart, artStop, artState, artKm, owScan, owShowRing, owShowTrain,
     owShowDebris, owWatchPair, owClearScene, owStats, recStart, recStop, passIcs, passAlert, passShare, missionHash,
     recCinemaShot, alertFire };
 }
@@ -22152,6 +22279,271 @@ function wireDoc() {
       setTimeout(watch, 400);
     }
   };
+}
+
+/* ==========================================================================
+   DEEP ZOOM — full-resolution Hubble and Webb images, cut into tiles
+   (deep/<id>.dzi) and explored with OpenSeadragon, so a phone only ever loads
+   the few hundred kilobytes it is actually showing.
+   ========================================================================== */
+
+const DEEP_LIST = [
+  { id: 'weic2205a', name: 'Cosmic Cliffs', place: 'Carina Nebula', at: 'deep:carina',
+    scope: 'James Webb', year: 2022, ly: 7600, px: '14,575 × 8,441',
+    page: 'https://esawebb.org/images/weic2205a/', credit: 'NASA, ESA, CSA and STScI',
+    blurb: 'The edge of a vast cavity in the star-forming region NGC 3324, hollowed out by the light and winds of hot young stars above the frame. The “mountains” are walls of gas and dust; the tallest peaks are about seven light-years high. Webb’s infrared eyes see through the dust to hundreds of stars that were hidden until 2022.' },
+  { id: 'weic2216b', name: 'Pillars of Creation', place: 'Eagle Nebula · infrared', at: 'M16',
+    scope: 'James Webb', year: 2022, ly: 6500, px: '8,423 × 14,589',
+    page: 'https://esawebb.org/images/weic2216b/', credit: 'NASA, ESA, CSA, STScI; J. DePasquale, A. Koekemoer, A. Pagan (STScI)',
+    blurb: 'Towering columns of cold gas and dust, seen in infrared light that passes through much of the dust. The wavy, lava-red edges at the tips of some pillars are jets and shocks from stars only a few hundred thousand years old, still forming inside them.' },
+  { id: 'heic1501a', name: 'Pillars of Creation', place: 'Eagle Nebula · visible light', at: 'M16',
+    scope: 'Hubble', year: 2014, ly: 6500, px: '6,780 × 7,071',
+    page: 'https://esahubble.org/images/heic1501a/', credit: 'NASA, ESA/Hubble and the Hubble Heritage Team',
+    blurb: 'Hubble returned to its most famous subject twenty years after the original 1995 photograph. The tallest pillar is about four light-years long. Ultraviolet light from nearby massive stars is slowly evaporating them — the blue haze along their edges is that gas boiling away.' },
+  { id: 'heic0601a', name: 'Orion Nebula', place: 'The great stellar nursery', at: 'M42',
+    scope: 'Hubble', year: 2006, ly: 1350, px: '18,000 × 18,000',
+    page: 'https://esahubble.org/images/heic0601a/', credit: 'NASA, ESA, M. Robberto (STScI/ESA) and the Hubble Space Telescope Orion Treasury Project Team',
+    blurb: 'One of the most detailed images ever made of a star-forming region, stitched together from hundreds of Hubble exposures. More than 3,000 stars appear, many so young they are still wrapped in the discs of dust from which planets form. Zoom into the bright core to find the Trapezium, the cluster of massive stars that lights the whole cloud.' },
+  { id: 'weic2212a', name: 'Tarantula Nebula', place: '30 Doradus · Large Magellanic Cloud', at: 'deep:tarantula',
+    scope: 'James Webb', year: 2022, ly: 161000, px: '14,557 × 8,418',
+    page: 'https://esawebb.org/images/weic2212a/', credit: 'NASA, ESA, CSA and STScI',
+    blurb: 'The largest and brightest star-forming region in our corner of the universe, in a neighbouring galaxy. The pale blue cluster at its heart holds some of the most massive stars known; their radiation has carved the cavity, and the nebula’s legs reach out around it.' },
+  { id: 'weic2326a', name: 'Crab Nebula', place: 'The wreck of a supernova', at: 'M1',
+    scope: 'James Webb', year: 2023, ly: 6500, px: '10,509 × 9,151',
+    page: 'https://esawebb.org/images/weic2326a/', credit: 'NASA, ESA, CSA, STScI, T. Temim (Princeton University)',
+    blurb: 'The remains of a star whose explosion was recorded by astronomers in China in 1054 — bright enough to see in daylight for weeks. At the centre spins a neutron star, about the size of a city, turning thirty times a second and powering the glowing cloud around it.' },
+  { id: 'weic2320b', name: 'Ring Nebula', place: 'A dying Sun-like star', at: 'M57',
+    scope: 'James Webb', year: 2023, ly: 2600, px: '4,097 × 4,156',
+    page: 'https://esawebb.org/images/weic2320b/', credit: 'ESA/Webb, NASA, CSA, M. Barlow, N. Cox, R. Wesson',
+    blurb: 'A star much like the Sun, at the very end of its life, has cast off its outer layers. Webb resolved the bright ring into about 20,000 dense clumps of gas. Our own Sun may leave something like this behind, five billion years from now.' },
+  { id: 'weic2207b', name: 'Southern Ring Nebula', place: 'NGC 3132', at: 'deep:southernring',
+    scope: 'James Webb', year: 2022, ly: 2500, px: '4,833 × 4,501',
+    page: 'https://esawebb.org/images/weic2207b/', credit: 'NASA, ESA, CSA, STScI and the Webb ERO Production Team',
+    blurb: 'Shells of gas thrown off by a dying star, over thousands of years. This was one of the first five images Webb released, in July 2022. Look closely behind the nebula: many of the faint smudges are distant galaxies.' },
+  { id: 'heic1307a', name: 'Horsehead Nebula', place: 'Orion · infrared', at: 'deep:horsehead',
+    scope: 'Hubble', year: 2013, ly: 1500, px: '2,704 × 2,826',
+    page: 'https://esahubble.org/images/heic1307a/', credit: 'NASA, ESA and the Hubble Heritage Team (AURA/STScI)',
+    blurb: 'In ordinary light the Horsehead is a dark silhouette. In infrared, Hubble sees into it: a delicate, glowing column of gas and dust, its edges lit by a young star just out of frame. It is being worn away and will last perhaps another five million years.' },
+  { id: 'heic1608a', name: 'Bubble Nebula', place: 'NGC 7635 · Cassiopeia', at: 'deep:bubble',
+    scope: 'Hubble', year: 2016, ly: 7100, px: '7,857 × 7,462',
+    page: 'https://esahubble.org/images/heic1608a/', credit: 'NASA, ESA and the Hubble Heritage Team',
+    blurb: 'A bubble about seven light-years wide, blown by the fierce wind of a single massive star — the bright one just left of centre. Released for Hubble’s 26th birthday.' },
+  { id: 'heic1520a', name: 'Veil Nebula', place: 'Cygnus Loop · supernova remnant', at: 'deep:veil',
+    scope: 'Hubble', year: 2015, ly: 2100, px: '10,681 × 7,121',
+    page: 'https://esahubble.org/images/heic1520a/', credit: 'NASA, ESA and the Hubble Heritage Team',
+    blurb: 'Fine threads of gas from a star that exploded roughly ten to twenty thousand years ago. The shock wave is still sweeping outward, heating the gas it meets; each colour marks a different element glowing.' },
+  { id: 'weic2208a', name: 'Stephan’s Quintet', place: 'A collision of galaxies', at: 'deep:stephan',
+    scope: 'James Webb', year: 2022, ly: 290e6, px: '12,654 × 12,132',
+    page: 'https://esawebb.org/images/weic2208a/', credit: 'NASA, ESA, CSA and STScI',
+    blurb: 'Four galaxies locked in a slow gravitational dance, 290 million light-years away; shock waves from their collisions light up the gas between them. The galaxy at the left is an impostor, much closer to us. Every faint speck in the background is another galaxy.' },
+  { id: 'heic0506a', name: 'Whirlpool Galaxy', place: 'M51 and its companion', at: 'M51',
+    scope: 'Hubble', year: 2005, ly: 31e6, px: '11,477 × 7,965',
+    page: 'https://esahubble.org/images/heic0506a/', credit: 'NASA, ESA, S. Beckwith (STScI) and the Hubble Heritage Team (STScI/AURA)',
+    blurb: 'A grand spiral being tugged by the small galaxy at its tip, NGC 5195. The pink knots along its arms are clusters of newborn stars; the dark lanes are dust. Zoom into the arms and individual stars begin to appear.' },
+];
+
+/* Places that the atlas did not have yet, so the images can be flown to. */
+const DEEP_PLACES = {
+  'deep:carina':      { name: 'Carina Nebula (NGC 3324)', ra: 159.33, dec: -58.63, ly: 7600, kind: 'Emission nebula · Carina' },
+  'deep:tarantula':   { name: 'Tarantula Nebula', ra: 84.66, dec: -69.10, ly: 161000, kind: 'Emission nebula · Large Magellanic Cloud' },
+  'deep:southernring':{ name: 'Southern Ring Nebula', ra: 151.76, dec: -40.44, ly: 2500, kind: 'Planetary nebula · Vela' },
+  'deep:horsehead':   { name: 'Horsehead Nebula', ra: 85.25, dec: -2.46, ly: 1500, kind: 'Dark nebula · Orion' },
+  'deep:bubble':      { name: 'Bubble Nebula', ra: 350.20, dec: 61.20, ly: 7100, kind: 'Emission nebula · Cassiopeia' },
+  'deep:veil':        { name: 'Veil Nebula', ra: 311.41, dec: 30.71, ly: 2100, kind: 'Supernova remnant · Cygnus' },
+  'deep:stephan':     { name: 'Stephan’s Quintet', ra: 338.99, dec: 33.96, ly: 290e6, kind: 'Compact group of galaxies · Pegasus' },
+};
+
+const DEEPV = { open: false, cur: null, osd: null, loading: null, galleryOpen: false };
+
+function deepFmtLy(ly) {
+  if (ly >= 1e6) return (ly / 1e6).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' million light-years';
+  return Math.round(ly).toLocaleString() + ' light-years';
+}
+
+/** Called while the stellar realm is being built: adds the missing places. */
+function deepRegister(reg) {
+  for (const [id, p] of Object.entries(DEEP_PLACES)) {
+    const v = radecToVec(p.ra, p.dec, p.ly);
+    const cosmic = p.ly > 1e5;
+    const imgs = DEEP_LIST.filter(e => e.at === id);
+    reg({
+      id, name: p.name, kind: p.kind, realm: cosmic ? 'COSMIC' : 'STELLAR',
+      radius: p.ly * LY * 0.02, color: 0xff9fb8, distLy: p.ly, ra: p.ra, dec: p.dec, deepOnly: true,
+      data: {
+        blurb: imgs[0] ? imgs[0].blurb : '',
+        facts: [['Distance', deepFmtLy(p.ly)], ['Right ascension', p.ra.toFixed(2) + '°'],
+                ['Declination', p.dec.toFixed(2) + '°']],
+      },
+      getPos: v2 => v2.copy(v).multiplyScalar(LY),
+      labelDist: cosmic ? [1e21, 4e24] : [8e16, 2e21],
+    });
+  }
+}
+
+function deepFor(o) { return o ? DEEP_LIST.filter(e => e.at === o.id) : []; }
+
+/* -------------------------------------------------------------- viewer */
+function deepLoadOSD() {
+  if (window.OpenSeadragon) return Promise.resolve();
+  if (DEEPV.loading) return DEEPV.loading;
+  DEEPV.loading = new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js';
+    s.onload = res;
+    s.onerror = () => { DEEPV.loading = null; rej(new Error('viewer did not load')); };
+    document.head.appendChild(s);
+  });
+  return DEEPV.loading;
+}
+
+function deepOpen(e) {
+  if (typeof e === 'string') e = DEEP_LIST.find(x => x.id === e);
+  if (!e) return;
+  DEEPV.cur = e;
+  DEEPV.open = true;
+  if (typeof DOC === 'object' && DOC.on) docStop();
+  const v = $('#deepv');
+  v.classList.add('show');
+  v.classList.remove('ready');
+  /* on a phone the picture comes first; the story is one tap away */
+  if (innerWidth <= 700 && !DEEPV.cur0) v.classList.add('info-off');
+  DEEPV.cur0 = true;
+  $('#dvkind').textContent = e.scope + ' Space Telescope · ' + e.year;
+  $('#dvname').textContent = e.name;
+  $('#dvsub').textContent = e.place + ' · ' + deepFmtLy(e.ly);
+  $('#dvblurb').textContent = e.blurb;
+  $('#dvcredit').innerHTML = 'Image: ' + esc(e.credit) + ' · ' + esc(e.px) + ' px · ' +
+    `<a href="${esc(e.page)}" target="_blank" rel="noopener">source</a> · CC BY 4.0`;
+  const fly = W.byId.get(e.at);
+  $('#dvfly').style.display = fly ? '' : 'none';
+  $('#dvthumb').style.backgroundImage = `url(deep/${e.id}_thumb.jpg)`;
+  const i = DEEP_LIST.indexOf(e);
+  $('#dvcount').textContent = (i + 1) + ' / ' + DEEP_LIST.length;
+  deepLoadOSD().then(() => {
+    if (!DEEPV.open || DEEPV.cur !== e) return;
+    if (!DEEPV.osd) deepMakeViewer();
+    DEEPV.osd.open('deep/' + e.id + '.dzi');
+  }).catch(() => { $('#dvload').textContent = 'The zoom viewer could not load — check your connection.'; });
+}
+
+function deepMakeViewer() {
+  const O = window.OpenSeadragon;
+  DEEPV.osd = O({
+    element: $('#dvos'),
+    showNavigationControl: false,
+    showNavigator: !IS_TOUCH || innerWidth > 700,
+    navigatorPosition: 'BOTTOM_RIGHT', navigatorSizeRatio: 0.15, navigatorAutoFade: false,
+    navigatorBackground: '#000', navigatorBorderColor: 'rgba(120,170,235,.35)',
+    navigatorDisplayRegionColor: '#66d9ff',
+    maxZoomPixelRatio: 2.4, minZoomImageRatio: 0.85, visibilityRatio: 0.5,
+    animationTime: 1.1, springStiffness: 6.5, blendTime: 0.25, alwaysBlend: false,
+    zoomPerScroll: 1.35, zoomPerClick: 2.2, imageLoaderLimit: 8, timeout: 60000,
+    gestureSettingsMouse: { clickToZoom: false, dblClickToZoom: true, flickEnabled: true },
+    gestureSettingsTouch: { pinchRotate: false, flickEnabled: true, dblClickToZoom: true },
+    preserveImageSizeOnResize: true,
+  });
+  DEEPV.osd.addHandler('open', () => {
+    const v = $('#deepv');
+    v.classList.remove('ready');
+    $('#dvload').textContent = 'Loading telescope image…';
+    const vp = DEEPV.osd.viewport;
+    vp.goHome(true);
+    /* settle in with a slow push towards the middle */
+    setTimeout(() => { if (DEEPV.open) vp.zoomTo(vp.getHomeZoom() * 1.18); }, 900);
+  });
+  DEEPV.osd.addHandler('tile-drawn', () => { $('#deepv').classList.add('ready'); });
+  DEEPV.osd.addHandler('open-failed', () => { $('#dvload').textContent = 'This image could not be opened.'; });
+  DEEPV.osd.addHandler('animation', () => {
+    const vp = DEEPV.osd.viewport;
+    const img = vp.viewportToImageZoom(vp.getZoom(true));
+    $('#dvzoomlvl').textContent = img >= 0.995 ? (img >= 1.5 ? 'beyond full resolution' : 'full resolution')
+      : Math.round(img * 100) + '% of full resolution';
+  });
+}
+
+function deepClose() {
+  if (!DEEPV.open) return;
+  DEEPV.open = false;
+  $('#deepv').classList.remove('show');
+  try { if (DEEPV.osd) DEEPV.osd.close(); } catch (e) {}
+}
+
+function deepStep(dir) {
+  const i = DEEP_LIST.indexOf(DEEPV.cur);
+  deepOpen(DEEP_LIST[(i + dir + DEEP_LIST.length) % DEEP_LIST.length]);
+}
+
+/* -------------------------------------------------------------- gallery */
+function deepGallery(show) {
+  const g = $('#deepg');
+  if (show === undefined) show = !g.classList.contains('show');
+  DEEPV.galleryOpen = show;
+  g.classList.toggle('show', show);
+  $('#btnDeep').classList.toggle('on', show);
+  if (show && !g.dataset.built) {
+    g.dataset.built = '1';
+    $('#deepgrid').innerHTML = DEEP_LIST.map(e =>
+      `<button class="dgcard" data-id="${e.id}">` +
+      `<span class="dgimg" style="background-image:url(deep/${e.id}_thumb.jpg)"></span>` +
+      `<span class="dgtx"><b>${esc(e.name)}</b><i>${esc(e.place)}</i>` +
+      `<em>${e.scope === 'Hubble' ? 'Hubble' : 'Webb'} · ${e.year} · ${esc(e.px.replace(/ × .*/, ''))} px</em></span></button>`).join('');
+    $('#deepgrid').onclick = ev => {
+      const b = ev.target.closest('.dgcard');
+      if (b) deepOpen(b.dataset.id);
+    };
+  }
+}
+
+function wireDeep() {
+  $('#btnDeep').onclick = () => deepGallery();
+  $('#deepgclose').onclick = () => deepGallery(false);
+  $('#dvclose').onclick = deepClose;
+  $('#dvprev').onclick = () => deepStep(-1);
+  $('#dvnext').onclick = () => deepStep(1);
+  $('#dvin').onclick = () => { if (DEEPV.osd) DEEPV.osd.viewport.zoomBy(2); };
+  $('#dvout').onclick = () => { if (DEEPV.osd) DEEPV.osd.viewport.zoomBy(0.5); };
+  $('#dvhome').onclick = () => { if (DEEPV.osd) DEEPV.osd.viewport.goHome(); };
+  $('#dvinfo').onclick = () => $('#deepv').classList.toggle('info-off');
+  $('#dvfly').onclick = () => {
+    const o = DEEPV.cur && W.byId.get(DEEPV.cur.at);
+    deepClose(); deepGallery(false);
+    if (o) { if (W.mode === 'sky') exitSky(); flyTo(o); showInfo(o); W.infoObj = o; }
+  };
+  /* The viewer owns the keyboard while it is open. */
+  addEventListener('keydown', ev => {
+    if (ev.target.tagName === 'INPUT') return;
+    if (DEEPV.open) {
+      const K = ev.key.toLowerCase();
+      if (K === 'escape') deepClose();
+      else if (K === 'arrowright' && !ev.shiftKey) deepStep(1);
+      else if (K === 'arrowleft' && !ev.shiftKey) deepStep(-1);
+      else if (K === 'i') $('#deepv').classList.toggle('info-off');
+      else if ((K === '=' || K === '+') && DEEPV.osd) DEEPV.osd.viewport.zoomBy(1.6);
+      else if ((K === '-' || K === '_') && DEEPV.osd) DEEPV.osd.viewport.zoomBy(1 / 1.6);
+      else if (K === '0' && DEEPV.osd) DEEPV.osd.viewport.goHome();
+      else return ev.stopImmediatePropagation();
+      ev.preventDefault(); ev.stopImmediatePropagation();
+      return;
+    }
+    if (ev.key === 'Escape' && DEEPV.galleryOpen) { deepGallery(false); return; }
+    if (ev.key.toLowerCase() === 'g' && !ev.metaKey && !ev.ctrlKey) { deepGallery(); ev.stopImmediatePropagation(); }
+  }, true);
+  /* the info sheet's telescope image */
+  $('#infobody').addEventListener('click', ev => {
+    const f = ev.target.closest('[data-deep]');
+    if (f) deepOpen(f.dataset.deep);
+  });
+}
+
+/** Extra info-sheet markup for objects with a telescope image. */
+function deepInfoHtml(o) {
+  const L = deepFor(o);
+  if (!L.length) return '';
+  return '<div class="deepcards">' + L.map(e =>
+    `<button class="deepcard" data-deep="${e.id}">` +
+    `<span class="dci" style="background-image:url(deep/${e.id}_thumb.jpg)"></span>` +
+    `<span class="dct"><b>Explore the ${e.scope === 'Hubble' ? 'Hubble' : 'Webb'} image</b>` +
+    `<i>${esc(e.px)} pixels · pinch or scroll to zoom</i></span></button>`).join('') + '</div>';
 }
 
 /* ---------------------------------------------------------- KICK OFF */
